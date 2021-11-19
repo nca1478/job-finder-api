@@ -35,7 +35,10 @@ module.exports = (sequelize, type) => {
             type: type.BOOLEAN,
             defaultValue: false,
         },
-
+        tokenRecovery: {
+            type: type.STRING,
+            defaultValue: null,
+        },
         active: {
             type: type.BOOLEAN,
             defaultValue: true,

@@ -4,11 +4,12 @@ import {
     findByIdUserValidation,
     updateUserValidation,
     loginUserValidation,
+    emailRecoveryValidation,
 } from './validateData'
 
 // Helpers
 import { showValErrors } from '../middlewares/showValErrors'
-import { verifyToken } from '../helpers/jwtHandler'
+import { verifyToken, accountToken } from '../helpers/jwtHandler'
 
 class UserRouter {
     constructor(router, controller) {
@@ -64,6 +65,13 @@ class UserRouter {
             '/login',
             [loginUserValidation(), showValErrors],
             this.controller.login.bind(this.controller),
+        )
+
+        // Send Email to Recover Password
+        this.router.put(
+            '/recovery',
+            [emailRecoveryValidation(), showValErrors],
+            this.controller.sendEmailRecovery.bind(this.controller),
         )
     }
 

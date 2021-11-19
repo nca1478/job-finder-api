@@ -131,6 +131,29 @@ class UserController extends UserService {
             res.status(500).json(error)
         }
     }
+
+    async sendEmailRecovery(req, res) {
+        try {
+            let email = req.body.email
+            let result = await this.sendEmailRecoveryPass(email)
+            if (result) {
+                const data = {
+                    msg: 'Email sended succesfully.',
+                    messageId: result.messageId,
+                }
+                const response = responsePOST(data)
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: 'Email not found or not allowed to change password',
+                })
+                return res.status(401).json(error)
+            }
+        } catch (err) {
+            const error = responseError([err])
+            return res.status(500).json(error)
+        }
+    }
 }
 
 export default UserController

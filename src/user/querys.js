@@ -19,4 +19,21 @@ const queryUserById = id => {
     }
 }
 
-export { queryUsersList, queryUserById }
+const querySendEmailRecovery = email => {
+    return {
+        where: {
+            email,
+            active: true,
+            google: false,
+            facebook: false,
+        },
+    }
+}
+
+const queryRecoveryPassword = (email, token) => {
+    return {
+        where: { email, tokenRecovery: token, active: true },
+    }
+}
+
+export { queryUsersList, queryUserById, querySendEmailRecovery, queryRecoveryPassword }

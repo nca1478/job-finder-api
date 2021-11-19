@@ -19,4 +19,13 @@ const sendTokenUser = user => {
     return jwt.sign(payload, jwtConfig.secret, jwtConfig.expirationUser)
 }
 
-export { sendTokenUser }
+const recoveryToken = email => {
+    const payload = {
+        email,
+        isRecovery: true,
+    }
+
+    return jwt.sign(payload, jwtConfig.secret, jwtConfig.expirationRecoverPass)
+}
+
+export { sendTokenUser, recoveryToken }

@@ -1,5 +1,10 @@
+// Dependencies
 import jwt from 'jsonwebtoken'
+
+// Token Settings
 import tokenConfig from '../config/jwt'
+
+// Response Setting
 import { responseError } from './response'
 
 let verifyToken = (req, res, next) => {

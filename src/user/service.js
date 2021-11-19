@@ -2,7 +2,16 @@
 import bcrypt from 'bcryptjs'
 
 // Queries
-import { queryUsersList, queryUserById } from './querys'
+import {
+    queryUsersList,
+    queryUserById,
+    querySendEmailRecovery,
+    queryRecoveryPassword,
+} from './querys'
+
+// Helpers
+import { recoveryToken } from '../helpers/sendToken'
+import { forgotPass, passChanged } from '../helpers/mail'
 
 class UserService {
     constructor(dependenciesData) {
@@ -42,7 +51,7 @@ class UserService {
             })
             let compare = bcrypt.compareSync(password, user.password)
             if (compare) {
-                let result = await this.user.update({ dataUser }, { where: { id: dataUser.id } })
+                let result = await this.user.update({ ...dataUser }, { where: { id: dataUser.id } })
                 return result
             } else {
                 return compare
@@ -87,6 +96,26 @@ class UserService {
                 } else {
                     return compare
                 }
+            } else {
+                return user
+            }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async sendEmailRecoveryPass(email) {
+        const query = querySendEmailRecovery(email)
+        try {
+            const user = await this.user.findOne(query)
+            if (user) {
+                const tokenRecovery = recoveryToken(email)
+                let result = await this.user.update(
+                    { tokenRecovery },
+                    { where: { email, active: true } },
+                )
+                const responseEmail = await forgotPass(email, tokenRecovery)
+                return responseEmail
             } else {
                 return user
             }
