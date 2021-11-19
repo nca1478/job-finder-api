@@ -4,6 +4,9 @@ import logger from 'morgan'
 import chalk from 'chalk'
 import cors from 'cors'
 
+// Routes
+import { userRoutes } from '../user'
+
 class Server {
     constructor() {
         this.app = express()
@@ -11,6 +14,7 @@ class Server {
 
         // Settings
         this.middlewares()
+        this.routes()
     }
 
     middlewares() {
@@ -29,10 +33,14 @@ class Server {
         this.app.use(express.static('public'))
     }
 
+    routes() {
+        this.app.use('/api/v1/users', userRoutes)
+    }
+
     listen() {
         const port = process.env.PORT
         this.app.listen(port, () => {
-            console.log(`${chalk.yellow('[freelance-finder-api:REST]')} Listening on port ${port}`)
+            console.log(`${chalk.yellow('[freelanceFinder:API]')} Listening on port ${port}`)
         })
     }
 }
