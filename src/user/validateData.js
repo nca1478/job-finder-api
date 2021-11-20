@@ -69,10 +69,25 @@ const emailRecoveryValidation = () => {
     ]
 }
 
+/**
+ * Validate body request of recovery password (POST /users/recovery/:token)
+ * @return	{Array}		Rules of validation (express-validator)
+ */
+const recoveryPassValidation = () => {
+    return [
+        check('email').exists().withMessage('Email is required'),
+        check('newPassword').exists().withMessage('New password is required'),
+        check('newPassword')
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!"#$%&()=?¿*-_.:,;+^\\-`.+,/]{8,}$/)
+            .withMessage('Password should contain at least 8 characters and at least 1 number'),
+    ]
+}
+
 export {
     createUserValidation,
     findByIdUserValidation,
     updateUserValidation,
     loginUserValidation,
     emailRecoveryValidation,
+    recoveryPassValidation,
 }

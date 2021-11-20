@@ -5,6 +5,7 @@ import {
     updateUserValidation,
     loginUserValidation,
     emailRecoveryValidation,
+    recoveryPassValidation,
 } from './validateData'
 
 // Helpers
@@ -72,6 +73,13 @@ class UserRouter {
             '/recovery',
             [emailRecoveryValidation(), showValErrors],
             this.controller.sendEmailRecovery.bind(this.controller),
+        )
+
+        // Recover password
+        this.router.put(
+            '/recovery/:token',
+            [recoveryPassValidation(), accountToken, showValErrors],
+            this.controller.recoveryPass.bind(this.controller),
         )
     }
 

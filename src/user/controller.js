@@ -154,6 +154,33 @@ class UserController extends UserService {
             return res.status(500).json(error)
         }
     }
+
+    async recoveryPass(req, res) {
+        try {
+            const data = {
+                email: req.body.email,
+                password: req.body.newPassword,
+                token: req.params.token,
+            }
+            let result = await this.recoveryPassword(data)
+            if (result.accepted[0].length > 0) {
+                const dataResponse = {
+                    msg: 'Password changed succesfully.',
+                    messageId: result.messageId,
+                }
+                const response = responsePOST(dataResponse)
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: 'Error recover password. Try again.',
+                })
+                return res.status(400).json(error)
+            }
+        } catch (err) {
+            const error = responseError([err])
+            return res.status(500).json(error)
+        }
+    }
 }
 
 export default UserController
