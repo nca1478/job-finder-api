@@ -2,7 +2,7 @@
 import { Model, DataTypes } from 'sequelize'
 
 // DB Connection
-import sequelize from '../db/connection'
+import sequelize from '../../db/connection'
 
 class User extends Model {}
 User.init(
@@ -46,6 +46,26 @@ User.init(
             type: DataTypes.STRING,
             defaultValue: null,
         },
+        profession: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        birthday: {
+            type: DataTypes.DATEONLY,
+            allowNull: true,
+        },
+        education: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        cvUrl: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        cvText: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         active: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
@@ -57,4 +77,4 @@ User.init(
     },
 )
 
-module.exports = User
+export default User

@@ -2,8 +2,8 @@
 import bcrypt from 'bcryptjs'
 
 // Helpers
-import { responseError, responseGET, responsePOST } from '../helpers/response'
-import { sendTokenUser } from '../helpers/sendToken'
+import { responseError, responseGET, responsePOST } from '../../helpers/response'
+import { sendTokenUser } from '../../helpers/sendToken'
 
 // Service
 import UserService from './service'
@@ -64,6 +64,11 @@ class UserController extends UserService {
                 id: req.params.id,
                 name: req.body.name,
                 email: req.body.email,
+                profession: req.body.profession,
+                birthday: req.body.birthday,
+                education: req.body.education,
+                cvUrl: req.body.cvUrl,
+                cvText: req.body.cvText,
             }
             const password = req.body.password
             const result = await this.updateUser(dataUser, password)
@@ -163,16 +168,23 @@ class UserController extends UserService {
                 token: req.params.token,
             }
             let result = await this.recoveryPassword(data)
-            if (result.accepted[0].length > 0) {
-                const dataResponse = {
-                    msg: 'Password changed succesfully.',
-                    messageId: result.messageId,
+            if (result) {
+                if (result.accepted[0].length > 0) {
+                    const dataResponse = {
+                        msg: 'Password changed succesfully.',
+                        messageId: result.messageId,
+                    }
+                    const response = responsePOST(dataResponse)
+                    return res.status(200).json(response)
+                } else {
+                    const error = responseError({
+                        msg: 'Error recover password. Try again.',
+                    })
+                    return res.status(400).json(error)
                 }
-                const response = responsePOST(dataResponse)
-                return res.status(200).json(response)
             } else {
                 const error = responseError({
-                    msg: 'Error recover password. Try again.',
+                    msg: 'Error recovering password. Token is not correct or User not found.',
                 })
                 return res.status(400).json(error)
             }

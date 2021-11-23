@@ -9,8 +9,8 @@ import {
 } from './validateData'
 
 // Helpers
-import { showValErrors } from '../middlewares/showValErrors'
-import { verifyToken, accountToken } from '../helpers/jwtHandler'
+import { showValErrors } from '../../middlewares/showValErrors'
+import { verifyToken, accountToken } from '../../helpers/jwtHandler'
 
 class UserRouter {
     constructor(router, controller) {

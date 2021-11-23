@@ -2,7 +2,7 @@
 import { check, oneOf } from 'express-validator'
 
 // Helpers
-import { userExistsByEmail, userExistsById, userExistsByState } from '../helpers/dbValidators'
+import { userExistsByEmail, userExistsById, userExistsByState } from '../../helpers/dbValidators'
 
 /**
  * Validate body request of create user endpoint (POST /users)

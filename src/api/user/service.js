@@ -10,8 +10,8 @@ import {
 } from './querys'
 
 // Helpers
-import { recoveryToken } from '../helpers/sendToken'
-import { forgotPass, passChanged } from '../helpers/mail'
+import { recoveryToken } from '../../helpers/sendToken'
+import { forgotPass, passChanged } from '../../helpers/mail'
 
 class UserService {
     constructor(dependenciesData) {
@@ -45,13 +45,14 @@ class UserService {
     }
 
     async updateUser(dataUser, password) {
+        const { id, email } = dataUser
         try {
             const user = await this.user.findOne({
-                where: { id: dataUser.id, email: dataUser.email },
+                where: { id, email },
             })
             let compare = bcrypt.compareSync(password, user.password)
             if (compare) {
-                let result = await this.user.update({ ...dataUser }, { where: { id: dataUser.id } })
+                let result = await this.user.update({ ...dataUser }, { where: { id } })
                 return result
             } else {
                 return compare

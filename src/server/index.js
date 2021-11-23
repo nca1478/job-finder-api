@@ -8,7 +8,7 @@ import cors from 'cors'
 const debug = require('debug')('freelanceFinder:DB')
 
 // Routes
-import { userRoutes } from '../user'
+import { userRoutes } from '../api/user'
 
 // DB Connection
 import sequelize from '../db/connection'

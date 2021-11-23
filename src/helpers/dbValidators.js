@@ -1,5 +1,5 @@
 // DB Connection
-import User from '../user/model'
+import User from '../api/user/model'
 
 const userExistsByEmail = async (email = '') => {
     const userExists = await User.findOne({ where: { email } })
