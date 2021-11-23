@@ -10,6 +10,7 @@ const debug = require('debug')('freelanceFinder:DB')
 // Routes
 import { userRoutes } from '../api/user'
 import { skillRoutes } from '../api/skill'
+import { sectorRoutes } from '../api/sector'
 
 // DB Connection
 import sequelize from '../db/connection'
@@ -43,6 +44,7 @@ class Server {
     routes() {
         this.app.use('/api/v1/users', userRoutes)
         this.app.use('/api/v1/skills', skillRoutes)
+        this.app.use('/api/v1/sectors', sectorRoutes)
     }
 
     listen() {

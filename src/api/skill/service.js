@@ -1,7 +1,7 @@
 // Queries
 import { querySkillsList } from './querys'
 
-class UserService {
+class SkillService {
     constructor(dependenciesData) {
         this.error = new Error()
 
@@ -37,4 +37,4 @@ class UserService {
     }
 }
 
-export default UserService
+export default SkillService
