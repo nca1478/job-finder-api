@@ -1,47 +1,60 @@
-module.exports = (sequelize, type) => {
-    return sequelize.define('user', {
+// Dependencies
+import { Model, DataTypes } from 'sequelize'
+
+// DB Connection
+import sequelize from '../db/connection'
+
+class User extends Model {}
+User.init(
+    {
         id: {
-            type: type.UUID,
+            type: DataTypes.UUID,
             primaryKey: true,
-            defaultValue: type.UUIDV4,
+            defaultValue: DataTypes.UUIDV4,
         },
         name: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         email: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             unique: true,
         },
         password: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         role: {
-            type: type.ENUM,
+            type: DataTypes.ENUM,
             values: ['ADMIN_ROLE', 'USER_ROLE'],
             defaultValue: 'USER_ROLE',
         },
         img: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             defaultValue: null,
         },
         google: {
-            type: type.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
         facebook: {
-            type: type.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
         tokenRecovery: {
-            type: type.STRING,
+            type: DataTypes.STRING,
             defaultValue: null,
         },
         active: {
-            type: type.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             defaultValue: true,
         },
-    })
-}
+    },
+    {
+        sequelize,
+        modelName: 'user',
+    },
+)
+
+module.exports = User

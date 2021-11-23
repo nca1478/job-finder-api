@@ -4,8 +4,14 @@ import logger from 'morgan'
 import chalk from 'chalk'
 import cors from 'cors'
 
+// Debugging utility
+const debug = require('debug')('freelanceFinder:DB')
+
 // Routes
 import { userRoutes } from '../user'
+
+// DB Connection
+import sequelize from '../db/connection'
 
 class Server {
     constructor() {
@@ -42,6 +48,23 @@ class Server {
         this.app.listen(port, () => {
             console.log(`${chalk.yellow('[freelanceFinder:API]')} Listening on port ${port}`)
         })
+    }
+
+    dbConnection() {
+        sequelize
+            .sync({ force: false })
+            .then(() => {
+                debug('Database connection succesfully')
+                console.log(
+                    `${chalk.yellow('[freelanceFinder:DB]')} Database connection succesfully`,
+                )
+            })
+            .catch(error => {
+                console.log(error)
+                console.log(
+                    `${chalk.red('[freelanceFinder:DB]')} Database connection error ${error}`,
+                )
+            })
     }
 }
 

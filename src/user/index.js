@@ -2,16 +2,13 @@
 import express from 'express'
 
 // DB Connection
-import { User, sequelize } from '../db/connection'
+import User from './model'
 
 // User Dependencies
 import UserController from './controller'
 import UserRouter from './routes'
 
-const dataDependencies = {
-    user: User,
-    sequelize,
-}
+const dataDependencies = { user: User }
 
 // Injecting Dependencies
 const router = express.Router()

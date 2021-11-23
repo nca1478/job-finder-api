@@ -6,3 +6,6 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') })
 const Server = require('./server')
 const server = new Server()
 server.listen()
+
+// Start DB Connection
+server.dbConnection()
