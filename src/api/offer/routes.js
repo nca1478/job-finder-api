@@ -55,6 +55,13 @@ class OfferRouter {
             [findByIdOfferValidation(), showValErrors],
             this.controller.publish.bind(this.controller),
         )
+
+        // Delete Offer
+        this.router.delete(
+            '/:id',
+            [findByIdOfferValidation(), showValErrors],
+            this.controller.delete.bind(this.controller),
+        )
     }
 
     setRoutes() {

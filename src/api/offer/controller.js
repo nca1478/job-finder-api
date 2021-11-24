@@ -101,6 +101,20 @@ class OfferController extends OfferService {
             res.status(500).json(error)
         }
     }
+
+    async delete(req, res) {
+        try {
+            const id = req.params.id
+            const result = await this.deleteOffer(id)
+            const response = responsePOST({
+                msg: 'Deleted Successfully.',
+            })
+            return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
 }
 
 export default OfferController

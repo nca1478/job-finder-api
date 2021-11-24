@@ -54,6 +54,15 @@ class OfferService {
             throw err
         }
     }
+
+    async deleteOffer(id) {
+        try {
+            let result = await this.offer.update({ active: false }, { where: { id } })
+            return result
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 export default OfferService
