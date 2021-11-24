@@ -13,8 +13,9 @@ import { skillRoutes } from '../api/skill'
 import { sectorRoutes } from '../api/sector'
 import { offerRoutes } from '../api/offer'
 
-// DB Connection
+// DB Connection and Associations
 import sequelize from '../db/connection'
+require('../db/associations')
 
 class Server {
     constructor() {

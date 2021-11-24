@@ -13,9 +13,10 @@ class OfferService {
         }
     }
 
-    async createOffer(data) {
+    async createOffer(userId, data) {
+        const dataOffer = { ...data, userId }
         try {
-            const result = await this.offer.create(data)
+            const result = await this.offer.create(dataOffer)
             return result
         } catch (err) {
             throw err

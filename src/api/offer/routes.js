@@ -3,6 +3,7 @@ import { createOfferValidation, findByIdOfferValidation } from './validateData'
 
 // Helpers
 import { showValErrors } from '../../middlewares/showValErrors'
+import { verifyToken } from '../../helpers/jwtHandler'
 
 class OfferRouter {
     constructor(router, controller) {
@@ -25,12 +26,16 @@ class OfferRouter {
         // Create New Job Offer
         this.router.post(
             '/',
-            [createOfferValidation(), showValErrors],
+            [verifyToken, createOfferValidation(), showValErrors],
             this.controller.create.bind(this.controller),
         )
 
         // Get Offers
-        this.router.get('/', this.controller.findAll.bind(this.controller))
+        this.router.get(
+            '/',
+            [verifyToken, showValErrors],
+            this.controller.findAll.bind(this.controller),
+        )
 
         // Get Offer by ID
         this.router.get(

@@ -24,6 +24,7 @@ Skill.init(
     {
         sequelize,
         modelName: 'skill',
+        timestamps: false,
     },
 )
 

@@ -24,6 +24,7 @@ Sector.init(
     {
         sequelize,
         modelName: 'sector',
+        timestamps: false,
     },
 )
 
