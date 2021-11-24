@@ -1,20 +1,20 @@
-const queryOffersList = () => {
+const queryOffersList = userId => {
     return {
-        where: { active: true },
+        where: { userId, active: true },
         order: [['title', 'ASC']],
     }
 }
 
-const queryOffersPublished = status => {
+const queryOffersPublished = (status, userId) => {
     return {
-        where: { published: status, active: true },
+        where: { published: status, userId, active: true },
         order: [['title', 'ASC']],
     }
 }
 
-const queryOfferById = id => {
+const queryOfferById = (offerId, userId) => {
     return {
-        where: { id, active: true },
+        where: { id: offerId, userId, active: true },
     }
 }
 

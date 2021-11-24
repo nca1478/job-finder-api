@@ -30,6 +30,13 @@ class OfferRouter {
             this.controller.create.bind(this.controller),
         )
 
+        // Get Job Offers (Published/Unpublish)
+        this.router.get(
+            '/published',
+            [verifyToken, showValErrors],
+            this.controller.findAllbyPub.bind(this.controller),
+        )
+
         // Get Offers
         this.router.get(
             '/',
@@ -40,7 +47,7 @@ class OfferRouter {
         // Get Offer by ID
         this.router.get(
             '/:id',
-            [findByIdOfferValidation(), showValErrors],
+            [verifyToken, findByIdOfferValidation(), showValErrors],
             this.controller.findById.bind(this.controller),
         )
 
@@ -50,9 +57,6 @@ class OfferRouter {
             [findByIdOfferValidation(), createOfferValidation(), showValErrors],
             this.controller.update.bind(this.controller),
         )
-
-        // Get Job Offers (Published/Unpublish)
-        this.router.get('/published', this.controller.findAllbyPub.bind(this.controller))
 
         // Publish/Unpublish Job Offer
         this.router.put(

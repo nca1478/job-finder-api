@@ -23,13 +23,13 @@ class OfferService {
         }
     }
 
-    async findOffers() {
-        const query = queryOffersList()
+    async findOffers(userId) {
+        const query = queryOffersList(userId)
         return await this.offer.findAll(query)
     }
 
-    async findOfferById(id) {
-        const query = queryOfferById(id)
+    async findOfferById(offerId, userId) {
+        const query = queryOfferById(offerId, userId)
         return this.offer.findOne(query)
     }
 
@@ -42,8 +42,8 @@ class OfferService {
         }
     }
 
-    async findOffersPublished(status) {
-        const query = queryOffersPublished(status)
+    async findOffersPublished(status, userId) {
+        const query = queryOffersPublished(status, userId)
         return await this.offer.findAll(query)
     }
 

@@ -28,7 +28,8 @@ class OfferController extends OfferService {
 
     async findAll(req, res) {
         try {
-            const result = await this.findOffers()
+            const userId = req.user.id
+            const result = await this.findOffers(userId)
             const response = responseGET(null, result)
             return res.status(200).json(response)
         } catch (err) {
@@ -39,8 +40,9 @@ class OfferController extends OfferService {
 
     async findById(req, res) {
         try {
-            const id = req.params.id
-            const result = await this.findOfferById(id)
+            const offerId = req.params.id
+            const userId = req.user.id
+            const result = await this.findOfferById(offerId, userId)
             const response = responseGET(null, result)
             return res.status(200).json(response)
         } catch (err) {
@@ -72,8 +74,9 @@ class OfferController extends OfferService {
 
     async findAllbyPub(req, res) {
         try {
+            const userId = req.user.id
             const status = req.query.status === 'true' ? true : false
-            const result = await this.findOffersPublished(status)
+            const result = await this.findOffersPublished(status, userId)
             const response = responseGET(null, result)
             return res.status(200).json(response)
         } catch (err) {
