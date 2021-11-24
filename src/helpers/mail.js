@@ -41,7 +41,7 @@ const sendMailInfo = async (to, subject, templateHTML) => {
     })
 
     const info = await transporter.sendMail({
-        from: "'Freelance Finder App' <test@uecgmaweb.com>",
+        from: "'Job Finder App' <test@uecgmaweb.com>",
         to,
         subject,
         html: templateHTML,
