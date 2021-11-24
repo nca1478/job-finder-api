@@ -35,18 +35,6 @@ class OfferController extends OfferService {
         }
     }
 
-    async findAllbyPub(req, res) {
-        try {
-            const status = req.query.status === 'true' ? true : false
-            const result = await this.findOffersPublished(status)
-            const response = responseGET(null, result)
-            return res.status(200).json(response)
-        } catch (err) {
-            const error = responseError([err])
-            res.status(500).json(error)
-        }
-    }
-
     async findById(req, res) {
         try {
             const id = req.params.id
@@ -74,6 +62,18 @@ class OfferController extends OfferService {
                 })
                 return res.status(200).json(response)
             }
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
+    async findAllbyPub(req, res) {
+        try {
+            const status = req.query.status === 'true' ? true : false
+            const result = await this.findOffersPublished(status)
+            const response = responseGET(null, result)
+            return res.status(200).json(response)
         } catch (err) {
             const error = responseError([err])
             res.status(500).json(error)

@@ -27,11 +27,6 @@ class OfferService {
         return await this.offer.findAll(query)
     }
 
-    async findOffersPublished(status) {
-        const query = queryOffersPublished(status)
-        return await this.offer.findAll(query)
-    }
-
     async findOfferById(id) {
         const query = queryOfferById(id)
         return this.offer.findOne(query)
@@ -44,6 +39,11 @@ class OfferService {
         } catch (err) {
             throw err
         }
+    }
+
+    async findOffersPublished(status) {
+        const query = queryOffersPublished(status)
+        return await this.offer.findAll(query)
     }
 
     async publishOffer(id, status) {
