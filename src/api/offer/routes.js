@@ -54,21 +54,21 @@ class OfferRouter {
         // Update Offer
         this.router.put(
             '/:id/update',
-            [findByIdOfferValidation(), createOfferValidation(), showValErrors],
+            [verifyToken, findByIdOfferValidation(), createOfferValidation(), showValErrors],
             this.controller.update.bind(this.controller),
         )
 
         // Publish/Unpublish Job Offer
         this.router.put(
             '/:id/publish',
-            [findByIdOfferValidation(), showValErrors],
+            [verifyToken, findByIdOfferValidation(), showValErrors],
             this.controller.publish.bind(this.controller),
         )
 
         // Delete Offer
         this.router.delete(
             '/:id',
-            [findByIdOfferValidation(), showValErrors],
+            [verifyToken, findByIdOfferValidation(), showValErrors],
             this.controller.delete.bind(this.controller),
         )
     }

@@ -53,6 +53,10 @@ Offer.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        img: {
+            type: DataTypes.STRING,
+            defaultValue: null,
+        },
         published: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,

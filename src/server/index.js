@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import cors from 'cors'
 
 // Debugging utility
-const debug = require('debug')('freelanceFinder:DB')
+const debug = require('debug')('jobFinder:DB')
 
 // Routes
 import { userRoutes } from '../api/user'
@@ -53,7 +53,7 @@ class Server {
     listen() {
         const port = process.env.PORT
         this.app.listen(port, () => {
-            console.log(`${chalk.yellow('[freelanceFinder:API]')} Listening on port ${port}`)
+            console.log(`${chalk.yellow('[jobFinder:API]')} Listening on port ${port}`)
         })
     }
 
@@ -62,15 +62,11 @@ class Server {
             .sync({ force: false })
             .then(() => {
                 debug('Database connection succesfully')
-                console.log(
-                    `${chalk.yellow('[freelanceFinder:DB]')} Database connection succesfully`,
-                )
+                console.log(`${chalk.yellow('[jobFinder:DB]')} Database connection succesfully`)
             })
             .catch(error => {
                 console.log(error)
-                console.log(
-                    `${chalk.red('[freelanceFinder:DB]')} Database connection error ${error}`,
-                )
+                console.log(`${chalk.red('[jobFinder:DB]')} Database connection error ${error}`)
             })
     }
 }
