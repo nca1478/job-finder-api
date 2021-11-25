@@ -23,6 +23,20 @@ class UserService {
         } else {
             this.user = dependenciesData.user
         }
+
+        if (!dependenciesData.userSkill) {
+            this.error.dependencyError = 'UserSkill Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.userSkill = dependenciesData.userSkill
+        }
+
+        if (!dependenciesData.skill) {
+            this.error.dependencyError = 'Skill Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.skill = dependenciesData.skill
+        }
     }
 
     async createUser(dataUser) {
@@ -47,13 +61,25 @@ class UserService {
     async updateUser(dataUser, password) {
         const { id, email } = dataUser
         try {
-            const user = await this.user.findOne({
-                where: { id, email },
-            })
+            const user = await this.user.findOne({ where: { id, email } })
             let compare = bcrypt.compareSync(password, user.password)
             if (compare) {
-                let result = await this.user.update({ ...dataUser }, { where: { id } })
-                return result
+                const userResponse = await this.user.update({ ...dataUser }, { where: { id } })
+                if (userResponse) {
+                    await this.userSkill.destroy({ where: { userId: id } })
+
+                    const userSkills = dataUser.skills.map(skill => {
+                        return {
+                            userId: dataUser.id,
+                            skillId: skill.id,
+                        }
+                    })
+                    await this.userSkill.bulkCreate(userSkills)
+
+                    return userResponse
+                } else {
+                    return userResponse
+                }
             } else {
                 return compare
             }

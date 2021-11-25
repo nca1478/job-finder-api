@@ -47,9 +47,9 @@ class UserRouter {
             this.controller.findById.bind(this.controller),
         )
 
-        // Update User
+        // Update User Profile
         this.router.put(
-            '/update/:id',
+            '/:id/update',
             [verifyToken, updateUserValidation(), showValErrors],
             this.controller.update.bind(this.controller),
         )

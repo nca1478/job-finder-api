@@ -3,12 +3,14 @@ import express from 'express'
 
 // DB Connection
 import User from './model'
+import UserSkill from '../user_skill/model'
+import Skill from '../skill/model'
 
 // User Dependencies
 import UserController from './controller'
 import UserRouter from './routes'
 
-const dataDependencies = { user: User }
+const dataDependencies = { user: User, userSkill: UserSkill, skill: Skill }
 
 // Injecting Dependencies
 const router = express.Router()
