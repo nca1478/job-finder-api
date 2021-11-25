@@ -22,12 +22,13 @@ class Server {
         this.app = express()
         this.port = process.env.PORT
 
-        // Settings
+        // Settings App
         this.middlewares()
         this.routes()
     }
 
     middlewares() {
+        // Cors Access
         this.app.use(cors())
         this.app.use(
             logger(
@@ -57,7 +58,7 @@ class Server {
         })
     }
 
-    dbConnection() {
+    startDBConnection() {
         sequelize
             .sync({ force: false })
             .then(() => {

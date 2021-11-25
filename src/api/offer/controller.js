@@ -77,9 +77,8 @@ class OfferController extends OfferService {
 
     async findAllbyPub(req, res) {
         try {
-            const userId = req.user.id
             const status = req.query.status === 'true' ? true : false
-            const result = await this.findOffersPublished(status, userId)
+            const result = await this.findOffersPublished(status)
             const response = responseGET(null, result)
             return res.status(200).json(response)
         } catch (err) {

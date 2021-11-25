@@ -8,4 +8,4 @@ const server = new Server()
 server.listen()
 
 // Start DB Connection
-server.dbConnection()
+server.startDBConnection()

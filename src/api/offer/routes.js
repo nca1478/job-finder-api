@@ -31,11 +31,7 @@ class OfferRouter {
         )
 
         // Get Job Offers (Published/Unpublish)
-        this.router.get(
-            '/published',
-            [verifyToken, showValErrors],
-            this.controller.findAllbyPub.bind(this.controller),
-        )
+        this.router.get('/published', this.controller.findAllbyPub.bind(this.controller))
 
         // Get Offers
         this.router.get(

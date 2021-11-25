@@ -5,8 +5,8 @@ import Sector from '../api/sector/model'
 import Offer from '../api/offer/model'
 
 // Associative Models
-import OfferSector from '../api/offerSector/model'
-import UserSkill from '../api/userSkill/model'
+import OfferSector from '../api/offer_sector/model'
+import UserSkill from '../api/user_skill/model'
 
 // ----------------------- DB Relationships ---------------------------
 

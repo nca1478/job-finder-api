@@ -12,6 +12,20 @@ class OfferService {
             this.offer = dependenciesData.offer
         }
 
+        if (!dependenciesData.user) {
+            this.error.dependencyError = 'User Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.user = dependenciesData.user
+        }
+
+        if (!dependenciesData.sector) {
+            this.error.dependencyError = 'Sector Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.sector = dependenciesData.sector
+        }
+
         if (!dependenciesData.offerSector) {
             this.error.dependencyError = 'OfferSector Model is undefined'
             throw this.error.dependencyError
@@ -42,12 +56,12 @@ class OfferService {
     }
 
     async findOffers(userId) {
-        const query = queryOffersList(userId)
+        const query = queryOffersList(userId, this.user, this.sector, this.offerSector)
         return await this.offer.findAll(query)
     }
 
     async findOfferById(offerId, userId) {
-        const query = queryOfferById(offerId, userId)
+        const query = queryOfferById(offerId, userId, this.user, this.sector, this.offerSector)
         return this.offer.findOne(query)
     }
 
@@ -60,8 +74,8 @@ class OfferService {
         }
     }
 
-    async findOffersPublished(status, userId) {
-        const query = queryOffersPublished(status, userId)
+    async findOffersPublished(status) {
+        const query = queryOffersPublished(status, this.user, this.sector, this.offerSector)
         return await this.offer.findAll(query)
     }
 

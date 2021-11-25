@@ -3,13 +3,20 @@ import express from 'express'
 
 // DB Connection
 import Offer from './model'
-import OfferSector from '../offerSector/model'
+import User from '../user/model'
+import Sector from '../sector/model'
+import OfferSector from '../offer_sector/model'
 
 // User Dependencies
 import OfferController from './controller'
 import OfferRouter from './routes'
 
-const dataDependencies = { offer: Offer, offerSector: OfferSector }
+const dataDependencies = {
+    offer: Offer,
+    user: User,
+    sector: Sector,
+    offerSector: OfferSector,
+}
 
 // Injecting Dependencies
 const router = express.Router()
