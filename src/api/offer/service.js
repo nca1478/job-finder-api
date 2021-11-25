@@ -11,13 +11,31 @@ class OfferService {
         } else {
             this.offer = dependenciesData.offer
         }
+
+        if (!dependenciesData.offerSector) {
+            this.error.dependencyError = 'OfferSector Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.offerSector = dependenciesData.offerSector
+        }
     }
 
-    async createOffer(userId, data) {
-        const dataOffer = { ...data, userId }
+    async createOffer({ userId, dataOffer, sectors }) {
+        const data = { ...dataOffer, userId }
         try {
-            const result = await this.offer.create(dataOffer)
-            return result
+            const offerResponse = await this.offer.create(data)
+            if (offerResponse) {
+                const offerSectors = sectors.map(sector => {
+                    return {
+                        offerId: offerResponse.id,
+                        sectorId: sector.id,
+                    }
+                })
+                await this.offerSector.bulkCreate(offerSectors)
+                return offerResponse
+            } else {
+                return offerResponse
+            }
         } catch (err) {
             throw err
         }

@@ -12,9 +12,12 @@ class OfferController extends OfferService {
 
     async create(req, res) {
         try {
-            const userId = req.user.id
-            const data = req.body
-            const result = await this.createOffer(userId, data)
+            const data = {
+                userId: req.user.id,
+                dataOffer: req.body,
+                sectors: req.body.sectors,
+            }
+            const result = await this.createOffer(data)
             const response = responsePOST({
                 msg: 'Create Successfully.',
                 skill: result,
