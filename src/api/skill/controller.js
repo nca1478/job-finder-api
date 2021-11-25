@@ -1,7 +1,7 @@
 // Helpers
 import { responseError, responseGET, responsePOST } from '../../helpers/response'
 
-// Service
+// Service Class
 import SkillService from './service'
 
 class SkillController extends SkillService {

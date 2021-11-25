@@ -1,21 +1,43 @@
-// Dependencies
-import Sequelize from 'sequelize'
-const Op = Sequelize.Op
-
-const queryUsersList = () => {
+const queryUsersList = (userSkill, skill) => {
     return {
         where: { active: true },
         order: [['name', 'ASC']],
         attributes: {
             exclude: ['password'],
         },
+        include: [
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: userSkill,
+                    as: 'userSkill',
+                    attributes: [],
+                },
+            },
+        ],
     }
 }
 
-const queryUserById = id => {
+const queryUserById = (id, userSkill, skill) => {
     return {
         where: { id, active: true },
         attributes: { exclude: ['password'] },
+        include: [
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: userSkill,
+                    as: 'userSkill',
+                    attributes: [],
+                },
+            },
+        ],
     }
 }
 

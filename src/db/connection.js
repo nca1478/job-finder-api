@@ -1,7 +1,7 @@
 // Dependencies
 import Sequelize from 'sequelize'
 
-// Settings Connection
+// DB Connection Values
 import { config } from '../config/env'
 const { dbName, dbUser, dbPass, dbHost } = config
 

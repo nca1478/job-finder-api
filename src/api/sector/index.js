@@ -1,7 +1,7 @@
 // Dependencies
 import express from 'express'
 
-// DB Connection
+// Models
 import Sector from './model'
 
 // User Dependencies

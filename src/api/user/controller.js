@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 import { responseError, responseGET, responsePOST } from '../../helpers/response'
 import { sendTokenUser } from '../../helpers/sendToken'
 
-// Service
+// Service Class
 import UserService from './service'
 
 class UserController extends UserService {

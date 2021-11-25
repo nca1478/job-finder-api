@@ -1,7 +1,7 @@
 // Dependencies
 import express from 'express'
 
-// DB Connection
+// Models
 import Skill from './model'
 
 // User Dependencies

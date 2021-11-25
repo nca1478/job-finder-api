@@ -1,3 +1,4 @@
+// Dependencies
 import nodemailer from 'nodemailer'
 
 const forgotPass = (email, token) => {

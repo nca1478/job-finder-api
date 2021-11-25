@@ -1,4 +1,4 @@
-// Models
+// Main Models
 import User from '../api/user/model'
 import Skill from '../api/skill/model'
 import Sector from '../api/sector/model'

@@ -1,4 +1,4 @@
-// DB Connection
+// Models
 import User from '../api/user/model'
 import Offer from '../api/offer/model'
 

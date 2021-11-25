@@ -1,7 +1,7 @@
 // Dependencies
 import jwt from 'jsonwebtoken'
 
-// Token Settings
+// Token Values
 import tokenConfig from '../config/jwt'
 
 // Response Setting

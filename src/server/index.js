@@ -7,7 +7,7 @@ import cors from 'cors'
 // Debugging utility
 const debug = require('debug')('jobFinder:DB')
 
-// Routes
+// Api Routes
 import { userRoutes } from '../api/user'
 import { skillRoutes } from '../api/skill'
 import { sectorRoutes } from '../api/sector'

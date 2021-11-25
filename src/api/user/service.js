@@ -49,12 +49,12 @@ class UserService {
     }
 
     async findUsers() {
-        const query = queryUsersList()
+        const query = queryUsersList(this.userSkill, this.skill)
         return await this.user.findAll(query)
     }
 
     async findUserById(id) {
-        const query = queryUserById(id)
+        const query = queryUserById(id, this.userSkill, this.skill)
         return this.user.findOne(query)
     }
 

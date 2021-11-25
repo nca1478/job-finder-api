@@ -1,7 +1,7 @@
 // Dependencies
 import jwt from 'jsonwebtoken'
 
-// Config
+// JWT Values
 import jwtConfig from '../config/jwt'
 
 const sendTokenUser = user => {

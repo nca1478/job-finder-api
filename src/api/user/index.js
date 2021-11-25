@@ -1,7 +1,7 @@
 // Dependencies
 import express from 'express'
 
-// DB Connection
+// Models
 import User from './model'
 import UserSkill from '../user_skill/model'
 import Skill from '../skill/model'

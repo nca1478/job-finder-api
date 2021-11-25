@@ -1,13 +1,13 @@
 // Dependencies
 import express from 'express'
 
-// DB Connection
+// Models
 import Offer from './model'
 import User from '../user/model'
 import Sector from '../sector/model'
 import OfferSector from '../offer_sector/model'
 
-// User Dependencies
+// Offer Dependencies
 import OfferController from './controller'
 import OfferRouter from './routes'
 
