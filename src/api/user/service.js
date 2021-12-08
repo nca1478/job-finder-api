@@ -49,12 +49,12 @@ class UserService {
     }
 
     async findUsers() {
-        const query = queryUsersList(this.userSkill, this.skill)
+        const query = queryUsersList()
         return await this.user.findAll(query)
     }
 
     async findUserById(id) {
-        const query = queryUserById(id, this.userSkill, this.skill)
+        const query = queryUserById(id)
         return this.user.findOne(query)
     }
 
@@ -65,21 +65,22 @@ class UserService {
             let compare = bcrypt.compareSync(password, user.password)
             if (compare) {
                 const userResponse = await this.user.update({ ...dataUser }, { where: { id } })
-                if (userResponse) {
-                    await this.userSkill.destroy({ where: { userId: id } })
+                // if (userResponse) {
+                //     await this.userSkill.destroy({ where: { userId: id } })
 
-                    const userSkills = dataUser.skills.map(skill => {
-                        return {
-                            userId: dataUser.id,
-                            skillId: skill.id,
-                        }
-                    })
-                    await this.userSkill.bulkCreate(userSkills)
+                //     const userSkills = dataUser.skills.map(skill => {
+                //         return {
+                //             userId: dataUser.id,
+                //             skillId: skill.id,
+                //         }
+                //     })
+                //     await this.userSkill.bulkCreate(userSkills)
 
-                    return userResponse
-                } else {
-                    return userResponse
-                }
+                //     return userResponse
+                // } else {
+                //     return userResponse
+                // }
+                return userResponse
             } else {
                 return compare
             }
