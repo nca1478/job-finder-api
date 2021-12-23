@@ -67,8 +67,21 @@ class OfferService {
 
     async updateOffer(id, dataOffer) {
         try {
-            let result = await this.offer.update({ ...dataOffer }, { where: { id } })
-            return result
+            let offerResponse = await this.offer.update({ ...dataOffer }, { where: { id } })
+            if (offerResponse) {
+                await this.offerSector.destroy({ where: { offerId: id } })
+                const offerSectors = dataOffer.sectors.map(sector => {
+                    return {
+                        offerId: id,
+                        sectorId: sector.id,
+                    }
+                })
+                await this.offerSector.bulkCreate(offerSectors)
+
+                return offerResponse
+            } else {
+                return offerResponse
+            }
         } catch (err) {
             throw err
         }
