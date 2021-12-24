@@ -43,7 +43,7 @@ class OfferRouter {
         // Get Offer by ID
         this.router.get(
             '/:id',
-            [verifyToken, findByIdOfferValidation(), showValErrors],
+            [findByIdOfferValidation(), showValErrors],
             this.controller.findById.bind(this.controller),
         )
 

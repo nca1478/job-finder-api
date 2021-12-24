@@ -44,8 +44,7 @@ class OfferController extends OfferService {
     async findById(req, res) {
         try {
             const offerId = req.params.id
-            const userId = req.user.id
-            const result = await this.findOfferById(offerId, userId)
+            const result = await this.findOfferById(offerId)
             const response = responseGET(null, result)
             return res.status(200).json(response)
         } catch (err) {

@@ -60,8 +60,8 @@ class OfferService {
         return await this.offer.findAll(query)
     }
 
-    async findOfferById(offerId, userId) {
-        const query = queryOfferById(offerId, userId, this.user, this.sector, this.offerSector)
+    async findOfferById(offerId) {
+        const query = queryOfferById(offerId, this.user, this.sector, this.offerSector)
         return this.offer.findOne(query)
     }
 

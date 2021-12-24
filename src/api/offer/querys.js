@@ -24,9 +24,9 @@ const queryOffersList = (userId, user, sector, offerSector) => {
     }
 }
 
-const queryOfferById = (offerId, userId, user, sector, offerSector) => {
+const queryOfferById = (offerId, user, sector, offerSector) => {
     return {
-        where: { id: offerId, userId, active: true },
+        where: { id: offerId, active: true },
         attributes: { exclude: ['userId'] },
         include: [
             {
