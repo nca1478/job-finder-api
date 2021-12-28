@@ -30,6 +30,9 @@ class OfferRouter {
             this.controller.create.bind(this.controller),
         )
 
+        // Search Offers
+        this.router.get('/search', this.controller.search.bind(this.controller))
+
         // Get Job Offers (Published/Unpublish)
         this.router.get('/published', this.controller.findAllbyPub.bind(this.controller))
 

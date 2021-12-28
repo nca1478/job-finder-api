@@ -53,6 +53,18 @@ class OfferController extends OfferService {
         }
     }
 
+    async search(req, res) {
+        try {
+            const search = req.query.q
+            const result = await this.searchOffers(search)
+            const response = responseGET(null, result)
+            return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
     async update(req, res) {
         try {
             const id = req.params.id

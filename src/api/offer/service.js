@@ -1,5 +1,5 @@
 // Queries
-import { queryOffersList, queryOfferById, queryOffersPublished } from './querys'
+import { queryOffersList, queryOfferById, queryOffersPublished, querySearchOffers } from './querys'
 
 class OfferService {
     constructor(dependenciesData) {
@@ -63,6 +63,11 @@ class OfferService {
     async findOfferById(offerId) {
         const query = queryOfferById(offerId, this.user, this.sector, this.offerSector)
         return this.offer.findOne(query)
+    }
+
+    async searchOffers(search) {
+        const query = querySearchOffers(search, this.user, this.sector, this.offerSector)
+        return await this.offer.findAll(query)
     }
 
     async updateOffer(id, dataOffer) {
