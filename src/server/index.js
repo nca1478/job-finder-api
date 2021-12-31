@@ -3,6 +3,7 @@ import express from 'express'
 import logger from 'morgan'
 import chalk from 'chalk'
 import cors from 'cors'
+import fileUpload from 'express-fileupload'
 
 // Debugging utility
 const debug = require('debug')('jobFinder:DB')
@@ -42,6 +43,15 @@ class Server {
 
         // Static Files
         this.app.use(express.static('public'))
+
+        // Fileupload
+        this.app.use(
+            fileUpload({
+                useTempFiles: true,
+                tempFileDir: '/tmp/',
+                createParentPath: true,
+            }),
+        )
     }
 
     routes() {

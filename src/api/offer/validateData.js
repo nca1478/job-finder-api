@@ -35,4 +35,12 @@ const findByIdOfferValidation = () => {
     ]
 }
 
-export { createOfferValidation, findByIdOfferValidation }
+/**
+ * Validate body request of get user endpoint (PUT /offers/:id/upload)
+ * @return	{Array}		Rules of validation (express-validator)
+ */
+const uploadImgOfferValidation = () => {
+    return [check('id', 'Is not a correct UUID').isUUID()]
+}
+
+export { createOfferValidation, findByIdOfferValidation, uploadImgOfferValidation }

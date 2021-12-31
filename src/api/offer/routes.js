@@ -1,5 +1,9 @@
 // Validate Data
-import { createOfferValidation, findByIdOfferValidation } from './validateData'
+import {
+    createOfferValidation,
+    findByIdOfferValidation,
+    uploadImgOfferValidation,
+} from './validateData'
 
 // Helpers
 import { showValErrors } from '../../middlewares/showValErrors'
@@ -62,6 +66,13 @@ class OfferRouter {
             '/:id/publish',
             [verifyToken, findByIdOfferValidation(), showValErrors],
             this.controller.publish.bind(this.controller),
+        )
+
+        // Upload Image
+        this.router.put(
+            '/:id/upload',
+            [verifyToken, uploadImgOfferValidation()],
+            this.controller.upload.bind(this.controller),
         )
 
         // Delete Offer

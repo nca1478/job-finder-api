@@ -86,6 +86,25 @@ class OfferController extends OfferService {
         }
     }
 
+    async upload(req, res) {
+        try {
+            const dataUpload = {
+                id: req.params.id,
+                img: req.files.img,
+            }
+            const result = await this.uploadImage(dataUpload)
+            const response = responsePOST({
+                msg: 'Upload Successfully.',
+                url: result,
+            })
+
+            return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
     async findAllbyPub(req, res) {
         try {
             const status = req.query.status === 'true' ? true : false
