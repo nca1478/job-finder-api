@@ -1,4 +1,5 @@
 // Dependencies
+import axios from 'axios'
 import bcrypt from 'bcryptjs'
 
 // Queries
@@ -158,6 +159,41 @@ class UserService {
                     img,
                     google: true,
                     facebook: false,
+                }
+                const result = await this.user.create(userInfo)
+                return result
+            } else {
+                if (user.active) {
+                    const userInfo = this.setUserInfo(user)
+                    return userInfo
+                } else {
+                    return null
+                }
+            }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async loginFacebook({ userID, accessToken }) {
+        try {
+            const urlGraphFacebook = `https://graph.facebook.com/${userID}?fields=id,name,email,picture&access_token=${accessToken}`
+            const response = await axios.get(urlGraphFacebook)
+            const facebookData = {
+                email: response.data.email,
+                name: response.data.name,
+                img: response.data.picture.data.url,
+            }
+
+            const user = await this.user.findOne({ where: { email: facebookData.email } })
+            if (!user) {
+                const userInfo = {
+                    name: facebookData.name,
+                    email: facebookData.email,
+                    password: ':P',
+                    img: facebookData.img,
+                    google: false,
+                    facebook: true,
                 }
                 const result = await this.user.create(userInfo)
                 return result

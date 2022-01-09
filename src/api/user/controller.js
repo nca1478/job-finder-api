@@ -162,6 +162,30 @@ class UserController extends UserService {
         }
     }
 
+    async facebook(req, res) {
+        try {
+            const facebookData = req.body
+            let result = await this.loginFacebook(facebookData)
+            if (result) {
+                const data = {
+                    msg: 'Facebook Login Successfully.',
+                    user: result,
+                    token: sendTokenUser(result),
+                }
+                const response = responsePOST(data)
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: 'User is not active',
+                })
+                return res.status(404).json(error)
+            }
+        } catch (err) {
+            const error = responseError([err])
+            return res.status(500).json(error)
+        }
+    }
+
     async sendEmailRecovery(req, res) {
         try {
             let email = req.body.email

@@ -67,6 +67,17 @@ const loginGoogleValidation = () => {
 }
 
 /**
+ * Validate body request of login user endpoint (POST /users/facebook)
+ * @return	{Array}		Rules of validation (express-validator)
+ */
+const loginFacebookValidation = () => {
+    return [
+        check('accessToken').exists().withMessage('Facebook accessToken is required'),
+        check('userID').exists().withMessage('Facebook userID is required'),
+    ]
+}
+
+/**
  * Validate body request of login user endpoint (POST /users/recovery)
  * @return	{Array}		Rules of validation (express-validator)
  */
@@ -99,4 +110,5 @@ export {
     emailRecoveryValidation,
     recoveryPassValidation,
     loginGoogleValidation,
+    loginFacebookValidation,
 }
