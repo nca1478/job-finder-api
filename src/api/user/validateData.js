@@ -59,6 +59,14 @@ const loginUserValidation = () => {
 }
 
 /**
+ * Validate body request of login user endpoint (POST /users/google)
+ * @return	{Array}		Rules of validation (express-validator)
+ */
+const loginGoogleValidation = () => {
+    return [check('tokenId').exists().withMessage('Google tokenId is required')]
+}
+
+/**
  * Validate body request of login user endpoint (POST /users/recovery)
  * @return	{Array}		Rules of validation (express-validator)
  */
@@ -90,4 +98,5 @@ export {
     loginUserValidation,
     emailRecoveryValidation,
     recoveryPassValidation,
+    loginGoogleValidation,
 }

@@ -138,6 +138,30 @@ class UserController extends UserService {
         }
     }
 
+    async google(req, res) {
+        try {
+            const tokenId = req.body.tokenId
+            let result = await this.loginGoogle(tokenId)
+            if (result) {
+                const data = {
+                    msg: 'Google Login Successfully.',
+                    user: result,
+                    token: sendTokenUser(result),
+                }
+                const response = responsePOST(data)
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: 'User is not active',
+                })
+                return res.status(404).json(error)
+            }
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
     async sendEmailRecovery(req, res) {
         try {
             let email = req.body.email

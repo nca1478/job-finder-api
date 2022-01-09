@@ -6,6 +6,7 @@ import {
     loginUserValidation,
     emailRecoveryValidation,
     recoveryPassValidation,
+    loginGoogleValidation,
 } from './validateData'
 
 // Helpers
@@ -66,6 +67,13 @@ class UserRouter {
             '/login',
             [loginUserValidation(), showValErrors],
             this.controller.login.bind(this.controller),
+        )
+
+        // Login Google
+        this.router.post(
+            '/google',
+            [loginGoogleValidation(), showValErrors],
+            this.controller.google.bind(this.controller),
         )
 
         // Send Email to Recover Password

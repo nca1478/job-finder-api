@@ -12,6 +12,7 @@ import {
 // Helpers
 import { recoveryToken } from '../../helpers/sendToken'
 import { forgotPass, passChanged } from '../../helpers/mail'
+import { googleVerify } from '../../helpers/googleVerify'
 
 class UserService {
     constructor(dependenciesData) {
@@ -126,6 +127,47 @@ class UserService {
                 }
             } else {
                 return user
+            }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    setUserInfo = user => {
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            img: user.img,
+            google: user.google,
+            facebook: user.facebook,
+            createdAt: user.createdAt,
+        }
+    }
+
+    async loginGoogle(tokenId) {
+        try {
+            const { email, name, img } = await googleVerify(tokenId)
+            const user = await this.user.findOne({ where: { email } })
+            if (!user) {
+                const userInfo = {
+                    name,
+                    email,
+                    password: ':P',
+                    img,
+                    google: true,
+                    facebook: false,
+                }
+                const result = await this.user.create(userInfo)
+                return result
+            } else {
+                if (user.active) {
+                    const userInfo = this.setUserInfo(user)
+                    return userInfo
+                } else {
+                    return null
+                }
             }
         } catch (err) {
             throw err
