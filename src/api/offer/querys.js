@@ -52,6 +52,33 @@ const queryOfferById = (offerId, user, sector, offerSector) => {
     }
 }
 
+const queryLastOffers = (limit, user, sector, offerSector) => {
+    return {
+        where: { published: true, active: true },
+        order: [['updatedAt', 'DESC']],
+        attributes: { exclude: ['userId'] },
+        include: [
+            {
+                model: user,
+                as: 'user',
+                attributes: ['id', 'name', 'email'],
+            },
+            {
+                model: sector,
+                as: 'sectors',
+                attributes: { exclude: ['sectorId'] },
+                required: true,
+                through: {
+                    model: offerSector,
+                    as: 'offerSector',
+                    attributes: [],
+                },
+            },
+        ],
+        limit,
+    }
+}
+
 const querySearchOffers = (search, user, sector, offerSector) => {
     return {
         where: {
@@ -108,4 +135,4 @@ const queryOffersPublished = (status, user, sector, offerSector) => {
     }
 }
 
-export { queryOffersList, queryOfferById, queryOffersPublished, querySearchOffers }
+export { queryOffersList, queryOfferById, queryOffersPublished, querySearchOffers, queryLastOffers }

@@ -40,6 +40,9 @@ class OfferRouter {
         // Get Job Offers (Published/Unpublish)
         this.router.get('/published', this.controller.findAllbyPub.bind(this.controller))
 
+        // Get Last 4 Offers
+        this.router.get('/lastOffers', this.controller.lastOffers.bind(this.controller))
+
         // Get Offers
         this.router.get(
             '/',

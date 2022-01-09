@@ -4,7 +4,13 @@ const cloudinary = require('cloudinary').v2
 cloudinary.config(process.env.CLOUDINARY_URL)
 
 // Queries
-import { queryOffersList, queryOfferById, queryOffersPublished, querySearchOffers } from './querys'
+import {
+    queryOffersList,
+    queryOfferById,
+    queryOffersPublished,
+    querySearchOffers,
+    queryLastOffers,
+} from './querys'
 
 class OfferService {
     constructor(dependenciesData) {
@@ -68,6 +74,11 @@ class OfferService {
     async findOfferById(offerId) {
         const query = queryOfferById(offerId, this.user, this.sector, this.offerSector)
         return this.offer.findOne(query)
+    }
+
+    async getLastOffers(limit = 4) {
+        const query = queryLastOffers(limit, this.user, this.sector, this.offerSector)
+        return await this.offer.findAll(query)
     }
 
     async searchOffers(search) {
