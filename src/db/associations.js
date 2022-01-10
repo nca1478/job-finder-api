@@ -6,7 +6,7 @@ import Offer from '../api/offer/model'
 
 // Associative Models
 import OfferSector from '../api/offer_sector/model'
-import UserSkill from '../api/user_skill/model'
+import OfferSkill from '../api/offer_skill/model'
 
 // ----------------------- DB Relationships ---------------------------
 
@@ -18,10 +18,10 @@ Offer.belongsTo(User, { as: 'user', foreignKey: 'userId' })
 
 // --------------------- belongsToMany (N:M) -------------------------
 
-// User-Skill / Skill-User
-User.belongsToMany(Skill, { through: UserSkill })
-Skill.belongsToMany(User, { through: UserSkill })
-
 // Offer-Sector / Sector-Offer
 Offer.belongsToMany(Sector, { through: OfferSector })
 Sector.belongsToMany(Offer, { through: OfferSector })
+
+// Offer-Skill / Skill-Offer
+Offer.belongsToMany(Skill, { through: OfferSkill })
+Skill.belongsToMany(Offer, { through: OfferSkill })

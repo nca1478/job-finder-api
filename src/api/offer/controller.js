@@ -16,6 +16,7 @@ class OfferController extends OfferService {
                 userId: req.user.id,
                 dataOffer: req.body,
                 sectors: req.body.sectors,
+                skills: req.body.skills,
             }
             const result = await this.createOffer(data)
             const response = responsePOST({

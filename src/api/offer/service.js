@@ -43,20 +43,50 @@ class OfferService {
         } else {
             this.offerSector = dependenciesData.offerSector
         }
+
+        if (!dependenciesData.skill) {
+            this.error.dependencyError = 'Skill Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.skill = dependenciesData.skill
+        }
+
+        if (!dependenciesData.offerSkill) {
+            this.error.dependencyError = 'OfferSkill Model is undefined'
+            throw this.error.dependencyError
+        } else {
+            this.offerSkill = dependenciesData.offerSkill
+        }
     }
 
-    async createOffer({ userId, dataOffer, sectors }) {
+    async createOfferSectors(sectors, offerResponse) {
+        const offerSectors = sectors.map(sector => {
+            return {
+                offerId: offerResponse.id,
+                sectorId: sector.id,
+            }
+        })
+        await this.offerSector.bulkCreate(offerSectors)
+    }
+
+    async createOfferSkills(skills, offerResponse) {
+        const offerSkills = skills.map(skill => {
+            return {
+                offerId: offerResponse.id,
+                skillId: skill.id,
+            }
+        })
+        await this.offerSkill.bulkCreate(offerSkills)
+    }
+
+    async createOffer({ userId, dataOffer, sectors, skills }) {
         const data = { ...dataOffer, userId }
         try {
             const offerResponse = await this.offer.create(data)
             if (offerResponse) {
-                const offerSectors = sectors.map(sector => {
-                    return {
-                        offerId: offerResponse.id,
-                        sectorId: sector.id,
-                    }
-                })
-                await this.offerSector.bulkCreate(offerSectors)
+                this.createOfferSectors(sectors, offerResponse)
+                this.createOfferSkills(skills, offerResponse)
+
                 return offerResponse
             } else {
                 return offerResponse
@@ -67,22 +97,50 @@ class OfferService {
     }
 
     async findOffers(userId) {
-        const query = queryOffersList(userId, this.user, this.sector, this.offerSector)
+        const query = queryOffersList(
+            userId,
+            this.user,
+            this.sector,
+            this.offerSector,
+            this.skill,
+            this.offerSkill,
+        )
         return await this.offer.findAll(query)
     }
 
     async findOfferById(offerId) {
-        const query = queryOfferById(offerId, this.user, this.sector, this.offerSector)
+        const query = queryOfferById(
+            offerId,
+            this.user,
+            this.sector,
+            this.offerSector,
+            this.skill,
+            this.offerSkill,
+        )
         return this.offer.findOne(query)
     }
 
     async getLastOffers(limit = 4) {
-        const query = queryLastOffers(limit, this.user, this.sector, this.offerSector)
+        const query = queryLastOffers(
+            limit,
+            this.user,
+            this.sector,
+            this.offerSector,
+            this.skill,
+            this.offerSkill,
+        )
         return await this.offer.findAll(query)
     }
 
     async searchOffers(search) {
-        const query = querySearchOffers(search, this.user, this.sector, this.offerSector)
+        const query = querySearchOffers(
+            search,
+            this.user,
+            this.sector,
+            this.offerSector,
+            this.skill,
+            this.offerSkill,
+        )
         return await this.offer.findAll(query)
     }
 
@@ -127,7 +185,14 @@ class OfferService {
     }
 
     async findOffersPublished(status) {
-        const query = queryOffersPublished(status, this.user, this.sector, this.offerSector)
+        const query = queryOffersPublished(
+            status,
+            this.user,
+            this.sector,
+            this.offerSector,
+            this.skill,
+            this.offerSkill,
+        )
         return await this.offer.findAll(query)
     }
 

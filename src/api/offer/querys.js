@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
 
-const queryOffersList = (userId, user, sector, offerSector) => {
+const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill) => {
     return {
         where: { userId, active: true },
         order: [['title', 'ASC']],
@@ -23,11 +23,22 @@ const queryOffersList = (userId, user, sector, offerSector) => {
                     attributes: [],
                 },
             },
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: offerSkill,
+                    as: 'offerSkill',
+                    attributes: [],
+                },
+            },
         ],
     }
 }
 
-const queryOfferById = (offerId, user, sector, offerSector) => {
+const queryOfferById = (offerId, user, sector, offerSector, skill, offerSkill) => {
     return {
         where: { id: offerId, active: true },
         attributes: { exclude: ['userId'] },
@@ -48,11 +59,22 @@ const queryOfferById = (offerId, user, sector, offerSector) => {
                     attributes: [],
                 },
             },
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: offerSkill,
+                    as: 'offerSkill',
+                    attributes: [],
+                },
+            },
         ],
     }
 }
 
-const queryLastOffers = (limit, user, sector, offerSector) => {
+const queryLastOffers = (limit, user, sector, offerSector, skill, offerSkill) => {
     return {
         where: { published: true, active: true },
         order: [['updatedAt', 'DESC']],
@@ -74,12 +96,23 @@ const queryLastOffers = (limit, user, sector, offerSector) => {
                     attributes: [],
                 },
             },
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: offerSkill,
+                    as: 'offerSkill',
+                    attributes: [],
+                },
+            },
         ],
         limit,
     }
 }
 
-const querySearchOffers = (search, user, sector, offerSector) => {
+const querySearchOffers = (search, user, sector, offerSector, skill, offerSkill) => {
     return {
         where: {
             title: search ? { [Op.like]: '%' + search + '%' } : { [Op.ne]: null },
@@ -105,11 +138,22 @@ const querySearchOffers = (search, user, sector, offerSector) => {
                     attributes: [],
                 },
             },
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: offerSkill,
+                    as: 'offerSkill',
+                    attributes: [],
+                },
+            },
         ],
     }
 }
 
-const queryOffersPublished = (status, user, sector, offerSector) => {
+const queryOffersPublished = (status, user, sector, offerSector, skill, offerSkill) => {
     return {
         where: { published: status, active: true },
         order: [['title', 'ASC']],
@@ -128,6 +172,17 @@ const queryOffersPublished = (status, user, sector, offerSector) => {
                 through: {
                     model: offerSector,
                     as: 'offerSector',
+                    attributes: [],
+                },
+            },
+            {
+                model: skill,
+                as: 'skills',
+                attributes: { exclude: ['skillId'] },
+                required: true,
+                through: {
+                    model: offerSkill,
+                    as: 'offerSkill',
                     attributes: [],
                 },
             },

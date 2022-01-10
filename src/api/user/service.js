@@ -26,13 +26,6 @@ class UserService {
             this.user = dependenciesData.user
         }
 
-        if (!dependenciesData.userSkill) {
-            this.error.dependencyError = 'UserSkill Model is undefined'
-            throw this.error.dependencyError
-        } else {
-            this.userSkill = dependenciesData.userSkill
-        }
-
         if (!dependenciesData.skill) {
             this.error.dependencyError = 'Skill Model is undefined'
             throw this.error.dependencyError
@@ -67,21 +60,6 @@ class UserService {
             let compare = bcrypt.compareSync(password, user.password)
             if (compare) {
                 const userResponse = await this.user.update({ ...dataUser }, { where: { id } })
-                // if (userResponse) {
-                //     await this.userSkill.destroy({ where: { userId: id } })
-
-                //     const userSkills = dataUser.skills.map(skill => {
-                //         return {
-                //             userId: dataUser.id,
-                //             skillId: skill.id,
-                //         }
-                //     })
-                //     await this.userSkill.bulkCreate(userSkills)
-
-                //     return userResponse
-                // } else {
-                //     return userResponse
-                // }
                 return userResponse
             } else {
                 return compare

@@ -6,6 +6,8 @@ import Offer from './model'
 import User from '../user/model'
 import Sector from '../sector/model'
 import OfferSector from '../offer_sector/model'
+import Skill from '../skill/model'
+import OfferSkill from '../offer_skill/model'
 
 // Offer Dependencies
 import OfferController from './controller'
@@ -16,6 +18,8 @@ const dataDependencies = {
     user: User,
     sector: Sector,
     offerSector: OfferSector,
+    skill: Skill,
+    offerSkill: OfferSkill,
 }
 
 // Injecting Dependencies
