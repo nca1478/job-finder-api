@@ -59,20 +59,20 @@ class OfferService {
         }
     }
 
-    async createOfferSectors(sectors, offerResponse) {
+    async createOfferSectors(sectors, offerId) {
         const offerSectors = sectors.map(sector => {
             return {
-                offerId: offerResponse.id,
+                offerId,
                 sectorId: sector.id,
             }
         })
         await this.offerSector.bulkCreate(offerSectors)
     }
 
-    async createOfferSkills(skills, offerResponse) {
+    async createOfferSkills(skills, offerId) {
         const offerSkills = skills.map(skill => {
             return {
-                offerId: offerResponse.id,
+                offerId,
                 skillId: skill.id,
             }
         })
@@ -84,8 +84,8 @@ class OfferService {
         try {
             const offerResponse = await this.offer.create(data)
             if (offerResponse) {
-                this.createOfferSectors(sectors, offerResponse)
-                this.createOfferSkills(skills, offerResponse)
+                this.createOfferSectors(sectors, offerResponse.id)
+                this.createOfferSkills(skills, offerResponse.id)
 
                 return offerResponse
             } else {
@@ -149,13 +149,10 @@ class OfferService {
             let offerResponse = await this.offer.update({ ...dataOffer }, { where: { id } })
             if (offerResponse) {
                 await this.offerSector.destroy({ where: { offerId: id } })
-                const offerSectors = dataOffer.sectors.map(sector => {
-                    return {
-                        offerId: id,
-                        sectorId: sector.id,
-                    }
-                })
-                await this.offerSector.bulkCreate(offerSectors)
+                this.createOfferSectors(dataOffer.sectors, id)
+
+                await this.offerSkill.destroy({ where: { offerId: id } })
+                this.createOfferSkills(dataOffer.skills, id)
 
                 return offerResponse
             } else {
