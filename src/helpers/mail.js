@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer'
 const forgotPass = (email, token) => {
     const subject = 'Recover your password'
     const urlClient = process.env.URL_CLIENT
-    const urlRedirect = `${urlClient}/auth/change-password?token=${token}`
+    const urlRedirect = `${urlClient}/change-password?token=${token}`
     const templateHTML = `
 		<h1>Password reset instructions</h1>
         <p>

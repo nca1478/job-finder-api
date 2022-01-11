@@ -69,7 +69,10 @@ class UserController extends UserService {
                 education: req.body.education,
                 cvUrl: req.body.cvUrl,
                 cvText: req.body.cvText,
-                skills: req.body.skills,
+                linkedinUser: req.body.linkedinUser,
+                twitterUser: req.body.twitterUser,
+                instagramUser: req.body.instagramUser,
+                facebookUser: req.body.facebookUser,
             }
             const password = req.body.password
             const result = await this.updateUser(dataUser, password)

@@ -58,13 +58,29 @@ User.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        cvText: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         cvUrl: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        cvText: {
+        linkedinUser: {
             type: DataTypes.STRING,
-            allowNull: true,
+            defaultValue: null,
+        },
+        twitterUser: {
+            type: DataTypes.STRING,
+            defaultValue: null,
+        },
+        instagramUser: {
+            type: DataTypes.STRING,
+            defaultValue: null,
+        },
+        facebookUser: {
+            type: DataTypes.STRING,
+            defaultValue: null,
         },
         active: {
             type: DataTypes.BOOLEAN,
