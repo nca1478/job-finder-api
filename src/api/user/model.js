@@ -59,7 +59,7 @@ User.init(
             allowNull: true,
         },
         cvText: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         cvUrl: {
