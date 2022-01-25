@@ -102,6 +102,14 @@ const recoveryPassValidation = () => {
     ]
 }
 
+/**
+ * Validate body request of get user endpoint (PUT /users/:id/upload)
+ * @return	{Array}		Rules of validation (express-validator)
+ */
+const uploadPdfValidation = () => {
+    return [check('id', 'Is not a correct UUID').isUUID()]
+}
+
 export {
     createUserValidation,
     findByIdUserValidation,
@@ -111,4 +119,5 @@ export {
     recoveryPassValidation,
     loginGoogleValidation,
     loginFacebookValidation,
+    uploadPdfValidation,
 }

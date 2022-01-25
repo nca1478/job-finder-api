@@ -1,6 +1,8 @@
 // Dependencies
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
+const cloudinary = require('cloudinary').v2
+cloudinary.config(process.env.CLOUDINARY_URL)
 
 // Queries
 import {
@@ -225,6 +227,24 @@ class UserService {
             } else {
                 return user
             }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async uploadUserPDF(dataUpload) {
+        const { id, pdf } = dataUpload
+        try {
+            const user = await this.user.findOne({ where: { id, active: true } })
+            if (user.dataValues.cvUrl) {
+                const nameArray = user.dataValues.cvUrl.split('/')
+                const name = nameArray[nameArray.length - 1]
+                const [public_id] = name.split('.')
+                cloudinary.uploader.destroy(public_id)
+            }
+            const { tempFilePath } = pdf
+            const { secure_url } = await cloudinary.uploader.upload(tempFilePath)
+            return secure_url
         } catch (err) {
             throw err
         }

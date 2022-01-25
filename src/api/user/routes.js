@@ -8,6 +8,7 @@ import {
     recoveryPassValidation,
     loginGoogleValidation,
     loginFacebookValidation,
+    uploadPdfValidation,
 } from './validateData'
 
 // Helpers
@@ -96,6 +97,13 @@ class UserRouter {
             '/recovery/:token',
             [recoveryPassValidation(), accountToken, showValErrors],
             this.controller.recoveryPass.bind(this.controller),
+        )
+
+        // Upload PDF
+        this.router.put(
+            '/:id/uploadPdf',
+            [verifyToken, uploadPdfValidation()],
+            this.controller.uploadPDF.bind(this.controller),
         )
     }
 

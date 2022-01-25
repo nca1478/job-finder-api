@@ -245,6 +245,25 @@ class UserController extends UserService {
             return res.status(500).json(error)
         }
     }
+
+    async uploadPDF(req, res) {
+        try {
+            const dataUpload = {
+                id: req.params.id,
+                pdf: req.files.pdf,
+            }
+            const result = await this.uploadUserPDF(dataUpload)
+            const response = responsePOST({
+                msg: 'Upload Successfully.',
+                url: result,
+            })
+
+            return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
 }
 
 export default UserController
