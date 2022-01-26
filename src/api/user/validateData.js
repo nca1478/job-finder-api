@@ -42,7 +42,6 @@ const updateUserValidation = () => {
         check('name').exists().withMessage('Name is required'),
         check('email').exists().withMessage('Email is required'),
         check('email').isEmail().normalizeEmail().withMessage('Must be valid email'),
-        check('password').exists().withMessage('Password is required'),
     ]
 }
 

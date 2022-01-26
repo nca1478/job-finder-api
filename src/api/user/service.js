@@ -57,15 +57,17 @@ class UserService {
 
     async updateUser(dataUser, password) {
         const { id, email } = dataUser
+        let compare = ''
         try {
             const user = await this.user.findOne({ where: { id, email } })
-            let compare = bcrypt.compareSync(password, user.password)
-            if (compare) {
-                const userResponse = await this.user.update({ ...dataUser }, { where: { id } })
-                return userResponse
-            } else {
-                return compare
+            if (password) {
+                compare = bcrypt.compareSync(password, user.password)
+                if (!compare) {
+                    return compare
+                }
             }
+            const userResponse = await this.user.update({ ...dataUser }, { where: { id } })
+            return userResponse
         } catch (err) {
             throw err
         }
@@ -89,6 +91,7 @@ class UserService {
             img: user.img,
             google: user.google,
             facebook: user.facebook,
+            cvUrl: user.cvUrl ? user.cvUrl : null,
             createdAt: user.createdAt,
         }
     }
@@ -111,19 +114,6 @@ class UserService {
             }
         } catch (err) {
             throw err
-        }
-    }
-
-    setUserInfo = user => {
-        return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            img: user.img,
-            google: user.google,
-            facebook: user.facebook,
-            createdAt: user.createdAt,
         }
     }
 

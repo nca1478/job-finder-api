@@ -58,10 +58,6 @@ User.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
-        cvText: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
         cvUrl: {
             type: DataTypes.STRING,
             allowNull: true,

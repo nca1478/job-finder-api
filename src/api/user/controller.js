@@ -68,7 +68,6 @@ class UserController extends UserService {
                 birthday: req.body.birthday,
                 education: req.body.education,
                 cvUrl: req.body.cvUrl,
-                cvText: req.body.cvText,
                 linkedinUser: req.body.linkedinUser,
                 twitterUser: req.body.twitterUser,
                 instagramUser: req.body.instagramUser,
