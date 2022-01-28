@@ -73,19 +73,11 @@ class UserController extends UserService {
                 instagramUser: req.body.instagramUser,
                 facebookUser: req.body.facebookUser,
             }
-            const password = req.body.password
-            const result = await this.updateUser(dataUser, password)
-            if (!result) {
-                const error = responseError({
-                    msg: 'Password is not correct',
-                })
-                return res.status(401).json(error)
-            } else {
-                const response = responsePOST({
-                    msg: 'Updated Successfully.',
-                })
-                return res.status(200).json(response)
-            }
+            const result = await this.updateUser(dataUser)
+            const response = responsePOST({
+                msg: 'Updated Successfully.',
+            })
+            return res.status(200).json(response)
         } catch (err) {
             const error = responseError([err])
             res.status(500).json(error)
@@ -185,6 +177,30 @@ class UserController extends UserService {
         } catch (err) {
             const error = responseError([err])
             return res.status(500).json(error)
+        }
+    }
+
+    async verify(req, res) {
+        try {
+            const dataUser = {
+                email: req.body.email,
+                password: req.body.password,
+            }
+            let result = await this.verifyUser(dataUser)
+            if (result) {
+                const response = responsePOST({
+                    user: result,
+                })
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: 'The combination of email and password does not exist',
+                })
+                return res.status(401).json(error)
+            }
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
         }
     }
 

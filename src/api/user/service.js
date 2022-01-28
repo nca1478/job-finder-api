@@ -55,17 +55,9 @@ class UserService {
         return this.user.findOne(query)
     }
 
-    async updateUser(dataUser, password) {
-        const { id, email } = dataUser
-        let compare = ''
+    async updateUser(dataUser) {
+        const { id } = dataUser
         try {
-            const user = await this.user.findOne({ where: { id, email } })
-            if (password) {
-                compare = bcrypt.compareSync(password, user.password)
-                if (!compare) {
-                    return compare
-                }
-            }
             const userResponse = await this.user.update({ ...dataUser }, { where: { id } })
             return userResponse
         } catch (err) {
@@ -174,6 +166,26 @@ class UserService {
                 } else {
                     return null
                 }
+            }
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async verifyUser(dataUser) {
+        const { email, password } = dataUser
+        try {
+            const user = await this.user.findOne({ where: { email, active: true } })
+            if (user) {
+                let compare = bcrypt.compareSync(password, user.password)
+                const userInfo = this.setUserInfo(user)
+                if (compare) {
+                    return userInfo
+                } else {
+                    return compare
+                }
+            } else {
+                return user
             }
         } catch (err) {
             throw err

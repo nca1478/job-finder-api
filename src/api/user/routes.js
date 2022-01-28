@@ -85,6 +85,13 @@ class UserRouter {
             this.controller.facebook.bind(this.controller),
         )
 
+        // Verify user by password
+        this.router.post(
+            '/verify',
+            [verifyToken, showValErrors],
+            this.controller.verify.bind(this.controller),
+        )
+
         // Send Email to Recover Password
         this.router.put(
             '/recovery',
