@@ -15,10 +15,7 @@ const createOfferValidation = () => {
         check('country').exists().withMessage('Country is required'),
         check('city').exists().withMessage('City is required'),
         check('state').exists().withMessage('State is required'),
-        check('experience').exists().withMessage('Experience is required'),
-        check('contract').exists().withMessage('Contract is required'),
-        check('payment').exists().withMessage('Payment is required'),
-        check('period').exists().withMessage('Period is required'),
+        check('price').exists().withMessage('Price is required'),
         check('currency').exists().withMessage('Currency is required'),
     ]
 }

@@ -22,32 +22,20 @@ Offer.init(
         },
         country: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        city: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         state: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
-        experience: {
+        city: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
-        contract: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        payment: {
+        price: {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0,
-        },
-        period: {
-            type: DataTypes.STRING,
-            allowNull: false,
         },
         currency: {
             type: DataTypes.STRING,
