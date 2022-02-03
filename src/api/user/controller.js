@@ -266,14 +266,21 @@ class UserController extends UserService {
             const dataUpload = {
                 id: req.params.id,
                 pdf: req.files.pdf,
+                validExtensions: ['pdf'],
             }
             const result = await this.uploadUserPDF(dataUpload)
-            const response = responsePOST({
-                msg: 'Upload Successfully.',
-                url: result,
-            })
-
-            return res.status(200).json(response)
+            if (result !== false) {
+                const response = responsePOST({
+                    msg: 'Upload Successfully.',
+                    url: result,
+                })
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: `Only ${dataUpload.validExtensions} file extensions are accepted.`,
+                })
+                return res.status(400).json(error)
+            }
         } catch (err) {
             const error = responseError([err])
             res.status(500).json(error)

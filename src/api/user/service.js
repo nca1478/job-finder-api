@@ -16,6 +16,7 @@ import {
 import { recoveryToken } from '../../helpers/sendToken'
 import { forgotPass, passChanged } from '../../helpers/mail'
 import { googleVerify } from '../../helpers/googleVerify'
+import { verifyFiles } from '../../helpers/verifyFiles'
 
 class UserService {
     constructor(dependenciesData) {
@@ -235,20 +236,25 @@ class UserService {
     }
 
     async uploadUserPDF(dataUpload) {
-        const { id, pdf } = dataUpload
-        try {
-            const user = await this.user.findOne({ where: { id, active: true } })
-            if (user.dataValues.cvUrl) {
-                const nameArray = user.dataValues.cvUrl.split('/')
-                const name = nameArray[nameArray.length - 1]
-                const [public_id] = name.split('.')
-                cloudinary.uploader.destroy(public_id)
+        const { id, pdf, validExtensions } = dataUpload
+        const verifyFile = verifyFiles(pdf, validExtensions)
+        if (verifyFile) {
+            try {
+                const user = await this.user.findOne({ where: { id, active: true } })
+                if (user.dataValues.cvUrl) {
+                    const nameArray = user.dataValues.cvUrl.split('/')
+                    const name = nameArray[nameArray.length - 1]
+                    const [public_id] = name.split('.')
+                    cloudinary.uploader.destroy(public_id)
+                }
+                const { tempFilePath } = pdf
+                const { secure_url } = await cloudinary.uploader.upload(tempFilePath)
+                return secure_url
+            } catch (err) {
+                throw err
             }
-            const { tempFilePath } = pdf
-            const { secure_url } = await cloudinary.uploader.upload(tempFilePath)
-            return secure_url
-        } catch (err) {
-            throw err
+        } else {
+            return false
         }
     }
 }

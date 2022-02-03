@@ -3,9 +3,6 @@ const path = require('path')
 const cloudinary = require('cloudinary').v2
 cloudinary.config(process.env.CLOUDINARY_URL)
 
-// Helpers
-import { verifyFiles } from '../../helpers/verifyFiles'
-
 // Queries
 import {
     queryOffersList,
@@ -14,6 +11,9 @@ import {
     querySearchOffers,
     queryLastOffers,
 } from './querys'
+
+// Helpers
+import { verifyFiles } from '../../helpers/verifyFiles'
 
 class OfferService {
     constructor(dependenciesData) {

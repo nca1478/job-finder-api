@@ -115,7 +115,7 @@ class OfferController extends OfferService {
                 return res.status(200).json(response)
             } else {
                 const error = responseError({
-                    msg: `Error. Only this images are accepted: ${dataUpload.validExtensions}.`,
+                    msg: `Only ${dataUpload.validExtensions} file extensions are accepted.`,
                 })
                 return res.status(400).json(error)
             }
