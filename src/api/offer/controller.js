@@ -104,14 +104,21 @@ class OfferController extends OfferService {
             const dataUpload = {
                 id: req.params.id,
                 img: req.files.img,
+                validExtensions: ['jpg', 'jpeg', 'png'],
             }
             const result = await this.uploadImage(dataUpload)
-            const response = responsePOST({
-                msg: 'Upload Successfully.',
-                url: result,
-            })
-
-            return res.status(200).json(response)
+            if (result !== false) {
+                const response = responsePOST({
+                    msg: 'Upload Successfully.',
+                    url: result,
+                })
+                return res.status(200).json(response)
+            } else {
+                const error = responseError({
+                    msg: `Error. Only this images are accepted: ${dataUpload.validExtensions}.`,
+                })
+                return res.status(400).json(error)
+            }
         } catch (err) {
             const error = responseError([err])
             res.status(500).json(error)

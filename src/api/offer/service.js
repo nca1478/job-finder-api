@@ -3,6 +3,9 @@ const path = require('path')
 const cloudinary = require('cloudinary').v2
 cloudinary.config(process.env.CLOUDINARY_URL)
 
+// Helpers
+import { verifyFiles } from '../../helpers/verifyFiles'
+
 // Queries
 import {
     queryOffersList,
@@ -164,20 +167,25 @@ class OfferService {
     }
 
     async uploadImage(dataUpload) {
-        const { id, img } = dataUpload
-        try {
-            const offer = await this.offer.findOne({ where: { id, active: true } })
-            if (offer.dataValues.img) {
-                const nameArray = offer.dataValues.img.split('/')
-                const name = nameArray[nameArray.length - 1]
-                const [public_id] = name.split('.')
-                cloudinary.uploader.destroy(public_id)
+        const { id, img, validExtensions } = dataUpload
+        const verifyFile = verifyFiles(img, validExtensions)
+        if (verifyFile) {
+            try {
+                const offer = await this.offer.findOne({ where: { id, active: true } })
+                if (offer.dataValues.img) {
+                    const nameArray = offer.dataValues.img.split('/')
+                    const name = nameArray[nameArray.length - 1]
+                    const [public_id] = name.split('.')
+                    cloudinary.uploader.destroy(public_id)
+                }
+                const { tempFilePath } = img
+                const { secure_url } = await cloudinary.uploader.upload(tempFilePath)
+                return secure_url
+            } catch (err) {
+                throw err
             }
-            const { tempFilePath } = img
-            const { secure_url } = await cloudinary.uploader.upload(tempFilePath)
-            return secure_url
-        } catch (err) {
-            throw err
+        } else {
+            return false
         }
     }
 
