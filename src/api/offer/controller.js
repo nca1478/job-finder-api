@@ -1,5 +1,6 @@
 // Helpers
 import { responseError, responseGET, responsePOST } from '../../helpers/response'
+import { paginate } from '../../helpers/pagination'
 
 // Service
 import OfferService from './service'
@@ -128,8 +129,9 @@ class OfferController extends OfferService {
     async findAllbyPub(req, res) {
         try {
             const status = req.query.status === 'true' ? true : false
-            const result = await this.findOffersPublished(status)
-            const response = responseGET(null, result)
+            const paginationData = paginate(req.query.page, req.query.limit)
+            const result = await this.findOffersPublished(status, paginationData)
+            const response = responseGET(paginationData.pagination, result)
             return res.status(200).json(response)
         } catch (err) {
             const error = responseError([err])

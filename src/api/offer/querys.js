@@ -153,11 +153,21 @@ const querySearchOffers = (search, user, sector, offerSector, skill, offerSkill)
     }
 }
 
-const queryOffersPublished = (status, user, sector, offerSector, skill, offerSkill) => {
+const queryOffersPublished = (
+    status,
+    user,
+    sector,
+    offerSector,
+    skill,
+    offerSkill,
+    limit,
+    offset,
+) => {
     return {
         where: { published: status, active: true },
         order: [['title', 'ASC']],
         attributes: { exclude: ['userId'] },
+        distinct: true,
         include: [
             {
                 model: user,
@@ -187,6 +197,8 @@ const queryOffersPublished = (status, user, sector, offerSector, skill, offerSki
                 },
             },
         ],
+        limit,
+        offset,
     }
 }
 
