@@ -32,10 +32,30 @@ class OfferController extends OfferService {
     }
 
     async findAll(req, res) {
+        const page = req.query.page ? req.query.page : 1
+        const limit = req.query.limit ? req.query.limit : 4
+
         try {
             const userId = req.user.id
-            const result = await this.findOffers(userId)
-            const response = responseGET(null, result)
+            const paginationData = paginate(page, limit)
+            const result = await this.findOffers(userId, paginationData)
+            const response = responseGET(paginationData.pagination, result)
+            return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
+    async findAllbyPub(req, res) {
+        const page = req.query.page ? req.query.page : 1
+        const limit = req.query.limit ? req.query.limit : 8
+
+        try {
+            const status = req.query.status === 'true' ? true : false
+            const paginationData = paginate(page, limit)
+            const result = await this.findOffersPublished(status, paginationData)
+            const response = responseGET(paginationData.pagination, result)
             return res.status(200).json(response)
         } catch (err) {
             const error = responseError([err])
@@ -120,19 +140,6 @@ class OfferController extends OfferService {
                 })
                 return res.status(400).json(error)
             }
-        } catch (err) {
-            const error = responseError([err])
-            res.status(500).json(error)
-        }
-    }
-
-    async findAllbyPub(req, res) {
-        try {
-            const status = req.query.status === 'true' ? true : false
-            const paginationData = paginate(req.query.page, req.query.limit)
-            const result = await this.findOffersPublished(status, paginationData)
-            const response = responseGET(paginationData.pagination, result)
-            return res.status(200).json(response)
         } catch (err) {
             const error = responseError([err])
             res.status(500).json(error)

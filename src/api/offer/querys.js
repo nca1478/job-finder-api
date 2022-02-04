@@ -1,11 +1,12 @@
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
 
-const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill) => {
+const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill, limit, offset) => {
     return {
         where: { userId, active: true },
         order: [['title', 'ASC']],
         attributes: { exclude: ['userId'] },
+        distinct: true,
         include: [
             {
                 model: user,
@@ -35,6 +36,8 @@ const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill) =
                 },
             },
         ],
+        limit,
+        offset,
     }
 }
 

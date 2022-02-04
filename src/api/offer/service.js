@@ -99,7 +99,9 @@ class OfferService {
         }
     }
 
-    async findOffers(userId) {
+    async findOffers(userId, paginationData) {
+        const { limit, skip } = paginationData
+        const offset = skip
         const query = queryOffersList(
             userId,
             this.user,
@@ -107,8 +109,26 @@ class OfferService {
             this.offerSector,
             this.skill,
             this.offerSkill,
+            limit,
+            offset,
         )
-        return await this.offer.findAll(query)
+        return await this.offer.findAndCountAll(query)
+    }
+
+    async findOffersPublished(status, paginationData) {
+        const { limit, skip } = paginationData
+        const offset = skip
+        const query = queryOffersPublished(
+            status,
+            this.user,
+            this.sector,
+            this.offerSector,
+            this.skill,
+            this.offerSkill,
+            limit,
+            offset,
+        )
+        return await this.offer.findAndCountAll(query)
     }
 
     async findOfferById(offerId) {
@@ -187,22 +207,6 @@ class OfferService {
         } else {
             return false
         }
-    }
-
-    async findOffersPublished(status, paginationData) {
-        const { limit, skip } = paginationData
-        const offset = skip
-        const query = queryOffersPublished(
-            status,
-            this.user,
-            this.sector,
-            this.offerSector,
-            this.skill,
-            this.offerSkill,
-            limit,
-            offset,
-        )
-        return await this.offer.findAndCountAll(query)
     }
 
     async publishOffer(id, status) {
