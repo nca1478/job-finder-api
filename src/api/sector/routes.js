@@ -32,6 +32,12 @@ class SectorRouter {
         // Get Sectors
         this.router.get('/', this.controller.findAll.bind(this.controller))
 
+        // Get Sector by ID
+        this.router.get('/:id', this.controller.findById.bind(this.controller))
+
+        // Update Sector
+        this.router.put('/:id/update', this.controller.update.bind(this.controller))
+
         // Delete Sector
         this.router.delete('/:id', this.controller.delete.bind(this.controller))
     }

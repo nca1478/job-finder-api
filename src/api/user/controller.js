@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 // Helpers
 import { responseError, responseGET, responsePOST } from '../../helpers/response'
 import { sendTokenUser } from '../../helpers/sendToken'
+import { paginate } from '../../helpers/pagination'
 
 // Service Class
 import UserService from './service'
@@ -36,9 +37,13 @@ class UserController extends UserService {
     }
 
     async findAll(req, res) {
+        const page = req.query.page ? req.query.page : 1
+        const limit = req.query.limit ? req.query.limit : 4
+
         try {
-            const result = await this.findUsers()
-            const response = responseGET(null, result)
+            const paginationData = paginate(page, limit)
+            const result = await this.findUsers(paginationData)
+            const response = responseGET(paginationData.pagination, result)
             return res.status(200).json(response)
         } catch (err) {
             const error = responseError([err])

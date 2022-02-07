@@ -100,8 +100,6 @@ class OfferService {
     }
 
     async findOffers(userId, paginationData) {
-        const { limit, skip } = paginationData
-        const offset = skip
         const query = queryOffersList(
             userId,
             this.user,
@@ -109,15 +107,12 @@ class OfferService {
             this.offerSector,
             this.skill,
             this.offerSkill,
-            limit,
-            offset,
+            paginationData,
         )
         return await this.offer.findAndCountAll(query)
     }
 
     async findOffersPublished(status, paginationData) {
-        const { limit, skip } = paginationData
-        const offset = skip
         const query = queryOffersPublished(
             status,
             this.user,
@@ -125,8 +120,7 @@ class OfferService {
             this.offerSector,
             this.skill,
             this.offerSkill,
-            limit,
-            offset,
+            paginationData,
         )
         return await this.offer.findAndCountAll(query)
     }

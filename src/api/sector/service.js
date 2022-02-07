@@ -1,5 +1,5 @@
 // Queries
-import { querySectorsList } from './querys'
+import { querySectorsList, querySectorById } from './querys'
 
 class SectorService {
     constructor(dependenciesData) {
@@ -22,9 +22,23 @@ class SectorService {
         }
     }
 
-    async findSectors() {
-        const query = querySectorsList()
-        return await this.sector.findAll(query)
+    async findSectors(paginationData) {
+        const query = querySectorsList(paginationData)
+        return await this.sector.findAndCountAll(query)
+    }
+
+    async findSectorById(id) {
+        const query = querySectorById(id)
+        return this.sector.findOne(query)
+    }
+
+    async updateSector(id, dataSector) {
+        try {
+            const sectorResponse = await this.sector.update({ ...dataSector }, { where: { id } })
+            return sectorResponse
+        } catch (err) {
+            throw err
+        }
     }
 
     async deleteSector(id) {

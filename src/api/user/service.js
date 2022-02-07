@@ -46,9 +46,10 @@ class UserService {
         }
     }
 
-    async findUsers() {
-        const query = queryUsersList()
-        return await this.user.findAll(query)
+    async findUsers(paginationData) {
+        const { limit, skip } = paginationData
+        const query = queryUsersList(limit, skip)
+        return await this.user.findAndCountAll(query)
     }
 
     async findUserById(id) {

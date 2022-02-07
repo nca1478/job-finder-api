@@ -1,5 +1,5 @@
 // Queries
-import { querySkillsList } from './querys'
+import { querySkillsList, querySkillById } from './querys'
 
 class SkillService {
     constructor(dependenciesData) {
@@ -22,9 +22,23 @@ class SkillService {
         }
     }
 
-    async findSkills() {
-        const query = querySkillsList()
-        return await this.skill.findAll(query)
+    async findSkills(paginationData) {
+        const query = querySkillsList(paginationData)
+        return await this.skill.findAndCountAll(query)
+    }
+
+    async findSkillById(id) {
+        const query = querySkillById(id)
+        return this.skill.findOne(query)
+    }
+
+    async updateSkill(id, dataSkill) {
+        try {
+            const skillResponse = await this.skill.update({ ...dataSkill }, { where: { id } })
+            return skillResponse
+        } catch (err) {
+            throw err
+        }
     }
 
     async deleteSkill(id) {

@@ -1,5 +1,6 @@
 // Helpers
 import { responseError, responseGET, responsePOST } from '../../helpers/response'
+import { paginate } from '../../helpers/pagination'
 
 // Service Class
 import SkillService from './service'
@@ -25,10 +26,46 @@ class SkillController extends SkillService {
     }
 
     async findAll(req, res) {
+        const page = req.query.page ? req.query.page : 1
+        const limit = req.query.limit ? req.query.limit : 8
         try {
-            const result = await this.findSkills()
+            const paginationData = paginate(page, limit)
+            const result = await this.findSkills(paginationData)
+            const response = responseGET(paginationData.pagination, result)
+            return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
+    async findById(req, res) {
+        try {
+            const id = req.params.id
+            const result = await this.findSkillById(id)
             const response = responseGET(null, result)
             return res.status(200).json(response)
+        } catch (err) {
+            const error = responseError([err])
+            res.status(500).json(error)
+        }
+    }
+
+    async update(req, res) {
+        try {
+            const id = req.params.id
+            const result = await this.updateSkill(id, req.body)
+            if (!result) {
+                const error = responseError({
+                    msg: 'Error updating skill. Try again.',
+                })
+                return res.status(401).json(error)
+            } else {
+                const response = responsePOST({
+                    msg: 'Updated Successfully.',
+                })
+                return res.status(200).json(response)
+            }
         } catch (err) {
             const error = responseError([err])
             res.status(500).json(error)

@@ -32,6 +32,12 @@ class SkillRouter {
         // Get Skills
         this.router.get('/', this.controller.findAll.bind(this.controller))
 
+        // Get Skill by ID
+        this.router.get('/:id', this.controller.findById.bind(this.controller))
+
+        // Update Skill
+        this.router.put('/:id/update', this.controller.update.bind(this.controller))
+
         // Delete Skill
         this.router.delete('/:id', this.controller.delete.bind(this.controller))
     }

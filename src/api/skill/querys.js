@@ -1,8 +1,18 @@
-const querySkillsList = () => {
+const querySkillsList = paginationData => {
+    const { limit, skip } = paginationData
     return {
         where: { active: true },
         order: [['name', 'ASC']],
+        distinct: true,
+        limit,
+        offset: skip,
     }
 }
 
-export { querySkillsList }
+const querySkillById = id => {
+    return {
+        where: { id, active: true },
+    }
+}
+
+export { querySkillsList, querySkillById }

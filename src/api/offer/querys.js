@@ -1,10 +1,11 @@
 import Sequelize from 'sequelize'
 const Op = Sequelize.Op
 
-const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill, limit, offset) => {
+const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill, paginationData) => {
+    const { limit, skip } = paginationData
     return {
         where: { userId, active: true },
-        order: [['title', 'ASC']],
+        order: [['createdAt', 'DESC']],
         attributes: { exclude: ['userId'] },
         distinct: true,
         include: [
@@ -37,7 +38,7 @@ const queryOffersList = (userId, user, sector, offerSector, skill, offerSkill, l
             },
         ],
         limit,
-        offset,
+        offset: skip,
     }
 }
 
@@ -163,9 +164,9 @@ const queryOffersPublished = (
     offerSector,
     skill,
     offerSkill,
-    limit,
-    offset,
+    paginationData,
 ) => {
+    const { limit, skip } = paginationData
     return {
         where: { published: status, active: true },
         order: [['title', 'ASC']],
@@ -201,7 +202,7 @@ const queryOffersPublished = (
             },
         ],
         limit,
-        offset,
+        offset: skip,
     }
 }
 
