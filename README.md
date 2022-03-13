@@ -49,11 +49,11 @@
 
 ## Demo Jobfinder app
 
--   [Jobfinder app](https://google.com)
+-   [Jobfinder App](https://jobfinder-app-njca.netlify.app/)
 
 ## Repo Jobfinder app
 
--   [Jobfinder app](https://google.com)
+-   [Jobfinder app](https://github.com/nca1478/job-finder-app)
 
 ## Requirements
 
