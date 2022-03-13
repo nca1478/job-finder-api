@@ -16,6 +16,11 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass, {
         idle: 10000,
     },
     logging: false,
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    },
 })
 
 module.exports = sequelize
