@@ -11,8 +11,8 @@
 -   Users Authentication Endpoints.
 -   Data and token validation through middlewares.
 -   Endpoints protected by JSON Web Token.
--   Models and Database with `MySQL`.
--   Database ORM: `Sequelize`.
+-   Models and Database with Postgres.
+-   Database ORM: Sequelize.
 -   Sending notifications by email.
 
 ## Purpose of project
@@ -24,7 +24,7 @@
 -   Javascript.
 -   NodeJS.
 -   ExpressJS.
--   MySQL.
+-   Postgres.
 -   Sequelize.
 
 ## Development tools and other Technologies
@@ -43,7 +43,7 @@
 -   [Nodemailer](https://nodemailer.com/about/)
 -   [Nodemon](https://www.npmjs.com/package/nodemon)
 -   [Morgan](https://www.npmjs.com/package/morgan)
--   [MySQL](https://www.mysql.com/)
+-   [Postgres](https://www.postgresql.org/)
 -   [Sequelize v6.9](https://sequelize.org/v6/)
 -   [Vscode](https://code.visualstudio.com/)
 
@@ -60,7 +60,7 @@
 -   Nodejs v14 or better.
 -   Express v4 or better.
 -   Sequelize v6.9.
--   MySQL v5.7.14
+-   PostgreSQL 14
 -   Sequelize v6.9
 
 ## Installation
