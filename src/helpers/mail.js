@@ -42,7 +42,7 @@ const sendMailInfo = async (to, subject, templateHTML) => {
     })
 
     const info = await transporter.sendMail({
-        from: `'Job Finder App' <${process.env.EMAIL_AUTH_USER}>`,
+        from: `Job Finder App <${process.env.EMAIL_AUTH_USER}>`,
         to,
         subject,
         html: templateHTML,
