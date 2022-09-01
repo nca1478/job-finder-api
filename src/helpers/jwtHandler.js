@@ -21,7 +21,7 @@ let verifyToken = (req, res, next) => {
         })
     } else {
         const errorInvalid = {
-            msg: 'Token is not present. Try again',
+            msg: 'El token no está presente. Intente nuevamente.',
         }
         res.status(401).json(responseError([errorInvalid]))
     }
@@ -32,7 +32,7 @@ let accountToken = (req, res, next) => {
         if (err) {
             if (err.message === 'jwt expired') {
                 const errorExpired = {
-                    msg: 'Recovery password token has expired, try again.',
+                    msg: 'El token de recuperación de contraseña ha expirado. Intente nuevamente.',
                 }
                 res.status(401).json(responseError([errorExpired]))
             } else {
@@ -45,7 +45,7 @@ let accountToken = (req, res, next) => {
             if (req.url.indexOf('recovery') >= 0) {
                 if (!decoded.isRecovery) {
                     const errorInvalid = {
-                        msg: 'Invalid Token',
+                        msg: 'Token no válido',
                     }
                     return res.status(401).json(responseError([errorInvalid]))
                 }

@@ -10,14 +10,14 @@ import { userExistsByEmail, userExistsById, userExistsByState } from '../../help
  */
 const createUserValidation = () => {
     return [
-        check('name').exists().withMessage('Name is required'),
-        check('email').exists().withMessage('Email is required'),
-        check('email').isEmail().normalizeEmail().withMessage('Must be valid email'),
+        check('name').exists().withMessage('El nombre es requerido'),
+        check('email').exists().withMessage('El email es requerido'),
+        check('email').isEmail().normalizeEmail().withMessage('Debe ser un email válido'),
         check('email').custom(userExistsByEmail),
-        check('password').exists().withMessage('Password is required'),
+        check('password').exists().withMessage('La contraseña es requerida'),
         check('password')
             .matches(/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!"#$%&()=?¿*-_.:,;+^\\-`.+,/]{8,}$/)
-            .withMessage('Password should contain at least 8 characters and at least 1 number'),
+            .withMessage('La contraseña debe contener al menos 8 caracteres y al menos 1 número'),
     ]
 }
 
@@ -27,7 +27,7 @@ const createUserValidation = () => {
  */
 const findByIdUserValidation = () => {
     return [
-        check('id', 'Is not a correct UUID').isUUID(),
+        check('id', 'No es un UUID correcto').isUUID(),
         check('id').custom(userExistsById),
         check('id').custom(userExistsByState),
     ]
@@ -39,9 +39,9 @@ const findByIdUserValidation = () => {
  */
 const updateUserValidation = () => {
     return [
-        check('name').exists().withMessage('Name is required'),
-        check('email').exists().withMessage('Email is required'),
-        check('email').isEmail().normalizeEmail().withMessage('Must be valid email'),
+        check('name').exists().withMessage('El nombre es requerido'),
+        check('email').exists().withMessage('El email es requerido'),
+        check('email').isEmail().normalizeEmail().withMessage('Debe ser un email válido'),
     ]
 }
 
@@ -51,9 +51,9 @@ const updateUserValidation = () => {
  */
 const loginUserValidation = () => {
     return [
-        check('email').exists().withMessage('Email is required'),
-        check('email').isEmail().normalizeEmail().withMessage('Must be valid email'),
-        check('password').exists().withMessage('Password is required'),
+        check('email').exists().withMessage('El email es requerido'),
+        check('email').isEmail().normalizeEmail().withMessage('Debe ser un email válido'),
+        check('password').exists().withMessage('La contraseña es requerida'),
     ]
 }
 
@@ -62,7 +62,7 @@ const loginUserValidation = () => {
  * @return	{Array}		Rules of validation (express-validator)
  */
 const loginGoogleValidation = () => {
-    return [check('tokenId').exists().withMessage('Google tokenId is required')]
+    return [check('tokenId').exists().withMessage('Google tokenId es requerido')]
 }
 
 /**
@@ -71,8 +71,8 @@ const loginGoogleValidation = () => {
  */
 const loginFacebookValidation = () => {
     return [
-        check('accessToken').exists().withMessage('Facebook accessToken is required'),
-        check('userID').exists().withMessage('Facebook userID is required'),
+        check('accessToken').exists().withMessage('Facebook accessToken es requerido'),
+        check('userID').exists().withMessage('Facebook userID es requerido'),
     ]
 }
 
@@ -82,8 +82,8 @@ const loginFacebookValidation = () => {
  */
 const emailRecoveryValidation = () => {
     return [
-        check('email').exists().withMessage('Email is required'),
-        check('email').isEmail().normalizeEmail().withMessage('Must be valid email'),
+        check('email').exists().withMessage('El email es requerido'),
+        check('email').isEmail().normalizeEmail().withMessage('Debe ser un email válido'),
     ]
 }
 
@@ -93,11 +93,11 @@ const emailRecoveryValidation = () => {
  */
 const recoveryPassValidation = () => {
     return [
-        check('email').exists().withMessage('Email is required'),
-        check('newPassword').exists().withMessage('New password is required'),
+        check('email').exists().withMessage('El email es requerido'),
+        check('newPassword').exists().withMessage('Nueva contraseña es requerida'),
         check('newPassword')
             .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!"#$%&()=?¿*-_.:,;+^\\-`.+,/]{8,}$/)
-            .withMessage('Password should contain at least 8 characters and at least 1 number'),
+            .withMessage('La contraseña debe contener al menos 8 caracteres y al menos 1 número'),
     ]
 }
 
@@ -106,7 +106,7 @@ const recoveryPassValidation = () => {
  * @return	{Array}		Rules of validation (express-validator)
  */
 const uploadPdfValidation = () => {
-    return [check('id', 'Is not a correct UUID').isUUID()]
+    return [check('id', 'No es un UUID correcto').isUUID()]
 }
 
 export {

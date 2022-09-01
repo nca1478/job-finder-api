@@ -6,7 +6,7 @@ import { check, oneOf } from 'express-validator'
  * @return	{Array}		Rules of validation (express-validator)
  */
 const createSectorValidation = () => {
-    return [check('name').exists().withMessage('Name is required')]
+    return [check('name').exists().withMessage('El nombre es requerido')]
 }
 
 export { createSectorValidation }

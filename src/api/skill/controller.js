@@ -15,7 +15,7 @@ class SkillController extends SkillService {
         try {
             const result = await this.createSkill(req.body)
             const response = responsePOST({
-                msg: 'Create Successfully.',
+                msg: 'Registro creado exitosamente.',
                 skill: result,
             })
             return res.status(201).json(response)
@@ -57,12 +57,12 @@ class SkillController extends SkillService {
             const result = await this.updateSkill(id, req.body)
             if (!result) {
                 const error = responseError({
-                    msg: 'Error updating skill. Try again.',
+                    msg: 'Error actualizando habilidad. Intente nuevamente.',
                 })
                 return res.status(401).json(error)
             } else {
                 const response = responsePOST({
-                    msg: 'Updated Successfully.',
+                    msg: 'Registro actualizado exitosamente.',
                 })
                 return res.status(200).json(response)
             }
@@ -77,7 +77,7 @@ class SkillController extends SkillService {
             const id = req.params.id
             const result = await this.deleteSkill(id)
             const response = responsePOST({
-                msg: 'Deleted Successfully.',
+                msg: 'Registro borrado exitosamente.',
             })
             return res.status(200).json(response)
         } catch (err) {

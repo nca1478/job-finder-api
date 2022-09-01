@@ -2,7 +2,7 @@
 import Sequelize from 'sequelize'
 
 // DB Connection Values
-import { config } from '../../config/env'
+import { config } from '../config/env'
 const { dbName, dbUser, dbPass, dbHost } = config
 
 // DB Connection (MySQL)

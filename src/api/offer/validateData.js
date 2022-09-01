@@ -10,13 +10,13 @@ import { offerExistsById, offerExistsByState } from '../../helpers/dbValidators'
  */
 const createOfferValidation = () => {
     return [
-        check('title').exists().withMessage('Title is required'),
-        check('description').exists().withMessage('Description is required'),
-        check('country').exists().withMessage('Country is required'),
-        check('city').exists().withMessage('City is required'),
-        check('state').exists().withMessage('State is required'),
-        check('price').exists().withMessage('Price is required'),
-        check('currency').exists().withMessage('Currency is required'),
+        check('title').exists().withMessage('El título es requerido'),
+        check('description').exists().withMessage('La descripción es requerida'),
+        check('country').exists().withMessage('El país es requerido'),
+        check('city').exists().withMessage('La ciudad es requerida'),
+        check('state').exists().withMessage('El estado es requerido'),
+        check('price').exists().withMessage('El precio es requerido'),
+        check('currency').exists().withMessage('La moneda es requerida'),
     ]
 }
 
@@ -26,7 +26,7 @@ const createOfferValidation = () => {
  */
 const findByIdOfferValidation = () => {
     return [
-        check('id', 'Is not a correct UUID').isUUID(),
+        check('id', 'No es un UUID correcto').isUUID(),
         check('id').custom(offerExistsById),
         check('id').custom(offerExistsByState),
     ]
@@ -37,7 +37,7 @@ const findByIdOfferValidation = () => {
  * @return	{Array}		Rules of validation (express-validator)
  */
 const uploadImgOfferValidation = () => {
-    return [check('id', 'Is not a correct UUID').isUUID()]
+    return [check('id', 'No es un UUID correcto').isUUID()]
 }
 
 export { createOfferValidation, findByIdOfferValidation, uploadImgOfferValidation }

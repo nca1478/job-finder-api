@@ -21,7 +21,7 @@ class OfferController extends OfferService {
             }
             const result = await this.createOffer(data)
             const response = responsePOST({
-                msg: 'Create Successfully.',
+                msg: 'Oferta creada exitosamente.',
                 skill: result,
             })
             return res.status(201).json(response)
@@ -105,12 +105,12 @@ class OfferController extends OfferService {
             const result = await this.updateOffer(id, req.body)
             if (!result) {
                 const error = responseError({
-                    msg: 'Error updating job offer. Try again.',
+                    msg: 'Error actualizando oferta de trabajo. Intente nuevamente.',
                 })
                 return res.status(401).json(error)
             } else {
                 const response = responsePOST({
-                    msg: 'Updated Successfully.',
+                    msg: 'Registro actualizado exitosamente.',
                 })
                 return res.status(200).json(response)
             }
@@ -130,13 +130,13 @@ class OfferController extends OfferService {
             const result = await this.uploadImage(dataUpload)
             if (result !== false) {
                 const response = responsePOST({
-                    msg: 'Upload Successfully.',
+                    msg: 'Subida de archivo exitosa.',
                     url: result,
                 })
                 return res.status(200).json(response)
             } else {
                 const error = responseError({
-                    msg: `Only ${dataUpload.validExtensions} file extensions are accepted.`,
+                    msg: `Solo las extensiones ${dataUpload.validExtensions} son aceptadas.`,
                 })
                 return res.status(400).json(error)
             }
@@ -153,12 +153,12 @@ class OfferController extends OfferService {
             const result = await this.publishOffer(id, status)
             if (!result) {
                 const error = responseError({
-                    msg: 'Error publishing job offer. Try again.',
+                    msg: 'Error publicando oferta de trabajo. Intente nuevamente.',
                 })
                 return res.status(401).json(error)
             } else {
                 const response = responsePOST({
-                    msg: `${status ? 'Publish' : 'Unpublish'} Successfully.`,
+                    msg: `${status ? 'Publicación' : 'Despublicación'} Exitosa.`,
                 })
                 return res.status(200).json(response)
             }
@@ -173,7 +173,7 @@ class OfferController extends OfferService {
             const id = req.params.id
             const result = await this.deleteOffer(id)
             const response = responsePOST({
-                msg: 'Deleted Successfully.',
+                msg: 'Registro borrado exitosamente.',
             })
             return res.status(200).json(response)
         } catch (err) {

@@ -15,7 +15,7 @@ class SectorController extends SectorService {
         try {
             const result = await this.createSector(req.body)
             const response = responsePOST({
-                msg: 'Create Successfully.',
+                msg: 'Registro creado exitosamente.',
                 skill: result,
             })
             return res.status(201).json(response)
@@ -57,12 +57,12 @@ class SectorController extends SectorService {
             const result = await this.updateSector(id, req.body)
             if (!result) {
                 const error = responseError({
-                    msg: 'Error updating sector. Try again.',
+                    msg: 'Error actualizadno sector. Intente nuevamente.',
                 })
                 return res.status(401).json(error)
             } else {
                 const response = responsePOST({
-                    msg: 'Updated Successfully.',
+                    msg: 'Registro actualizado exitosamente.',
                 })
                 return res.status(200).json(response)
             }
@@ -77,7 +77,7 @@ class SectorController extends SectorService {
             const id = req.params.id
             const result = await this.deleteSector(id)
             const response = responsePOST({
-                msg: 'Deleted Successfully.',
+                msg: 'Registro borrado exitosamente.',
             })
             return res.status(200).json(response)
         } catch (err) {

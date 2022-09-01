@@ -22,5 +22,3 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass, {
         },
     },
 })
-
-module.exports = sequelize

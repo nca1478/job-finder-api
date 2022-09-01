@@ -64,7 +64,7 @@ class Server {
     listen() {
         const port = process.env.PORT
         this.app.listen(port, () => {
-            console.log(`${chalk.yellow('[jobFinder:API]')} Listening on port ${port}`)
+            console.log(`${chalk.yellow('[jobFinder:API]')} Servidor iniciado en puerto ${port}`)
         })
     }
 
@@ -72,12 +72,14 @@ class Server {
         sequelize
             .sync({ force: false })
             .then(() => {
-                debug('Database connection succesfully')
-                console.log(`${chalk.yellow('[jobFinder:DB]')} Database connection succesfully`)
+                debug('Conexión a base de datos exitosa')
+                console.log(`${chalk.yellow('[jobFinder:DB]')} Conexión a base de datos exitosa`)
             })
             .catch(error => {
                 console.log(error)
-                console.log(`${chalk.red('[jobFinder:DB]')} Database connection error ${error}`)
+                console.log(
+                    `${chalk.red('[jobFinder:DB]')} Error de conexión a la base de datos ${error}`,
+                )
             })
     }
 }
