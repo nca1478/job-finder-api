@@ -1,23 +1,23 @@
 # Jobfinder Api
 
-`Jobfinder Api` is the backend for the `Jobfinder App` project.
+`Jobfinder Api` es el backend para el proyecto `Jobfinder App`.
 
-## Features
+## Características
 
--   Job Offers Endpoints.
--   Sectors Endpoints.
--   Skills Endpoints.
--   Users Endpoints.
--   Users Authentication Endpoints.
--   Data and token validation through middlewares.
--   Endpoints protected by JSON Web Token.
--   Models and Database with Postgres.
--   Database ORM: Sequelize.
--   Sending notifications by email.
+-   Endpoints para Ofertas de Trabajo.
+-   Endpoints para Sectores.
+-   Endpoints para Habilidades.
+-   Endpoints para Usuarios.
+-   Endpoints para Autenticación de Usuarios.
+-   Validación de Data y Token a través de middlewares.
+-   Endpoints protegidos con JSON Web Tokens.
+-   Modelos y Base de Datos en Postgres.
+-   ORM de Base de Datos: Sequelize.
+-   Envío de Notificaciones por Email.
 
-## Purpose of project
+## Propósito del Proyecto
 
--   This project was development to apply and practice the backend technologies shown below.
+-   Este proyecto fue desarrollado para aplicar y practicar las tecnologías de back-end que se muestran a continuación.
 
 ## Tech Stack
 
@@ -27,7 +27,7 @@
 -   Postgres.
 -   Sequelize.
 
-## Development tools and other Technologies
+## Herramientas de Desarrollo y Otras Tecnologías
 
 -   [Axios](https://www.npmjs.com/package/axios)
 -   [Babel](https://babeljs.io/)
@@ -55,22 +55,23 @@
 
 -   [Jobfinder app](https://github.com/nca1478/job-finder-app)
 
-## Requirements
+## Requerimientos
 
--   Nodejs v14 or better.
--   Express v4 or better.
+-   Nodejs v14 o superior.
+-   Express v4 o superior.
 -   Sequelize v6.9.
 -   PostgreSQL 14
 -   Sequelize v6.9
 
-## Installation
+## Instalación
 
 > npm install
 
-## Run the api
+## Ejecutar la Api
 
-> npm run dev
+> npm run dev (modo development)
+> npm start (modo production)
 
-## Enter file
+## Archivo de Entrada
 
 > src/app.js
