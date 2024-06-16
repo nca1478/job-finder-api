@@ -3,4 +3,5 @@ export const config = {
     dbUser: process.env.DBUSER,
     dbPass: process.env.DBPASS,
     dbHost: process.env.DBHOST,
+    dbPort: process.env.DBPORT,
 }
