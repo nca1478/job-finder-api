@@ -31,13 +31,15 @@ const sendMailInfo = async (to, subject, templateHTML) => {
     const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
-        secure: true,
+        secure: process.env.EMAIL_SECURE === 'true',
         auth: {
             user: process.env.EMAIL_AUTH_USER,
             pass: process.env.EMAIL_AUTH_PASS,
         },
+        requireTLS: process.env.EMAIL_REQUIRE_TLS === 'true',
+        disableUrlAccess: process.env.EMAIL_DISABLE_URL_ACCESS === 'true',
         tls: {
-            rejectUnauthorized: false,
+            rejectUnauthorized: process.env.EMAIL_REJECT_UNAUTHORIZED === 'true',
         },
     })
 
