@@ -17,11 +17,11 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass, {
     },
     port: Number(dbPort),
     logging: false,
-    // dialectOptions: {
-    //     ssl: {
-    //         rejectUnauthorized: false,
-    //     },
-    // },
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    },
 })
 
 module.exports = sequelize
