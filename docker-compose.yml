@@ -33,6 +33,7 @@ services:
             - GOOGLE_SECRET_ID=${GOOGLE_SECRET_ID}
         ports:
             - 4000:4000
+            - 9229:9229
         volumes:
             - ./src:/usr/src/app/src
         depends_on:

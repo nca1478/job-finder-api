@@ -1,7 +1,4 @@
-# syntax=docker/dockerfile:1
-
-ARG NODE_VERSION=12.13.0
-FROM node:${NODE_VERSION}-alpine as deps
+FROM node:12.13.0-alpine3.10 AS deps
 WORKDIR /usr/src/app
 COPY package.json ./
 COPY package-lock.json ./

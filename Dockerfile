@@ -1,13 +1,7 @@
-# syntax=docker/dockerfile:1
-
-ARG NODE_VERSION=12.13.0
-FROM node:${NODE_VERSION}-alpine
+FROM node:12.13.0-alpine3.10
 WORKDIR /usr/src/app
-
-COPY package.json ./
-COPY package-lock.json ./
+COPY package*.json ./
 RUN npm install
 
 COPY . .
-CMD npm run build \
-  && npm run dev
+CMD npm run dev
