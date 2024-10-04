@@ -3,7 +3,10 @@ import Sequelize from 'sequelize'
 
 // DB Connection Values
 import { config } from '../config/env'
-const { dbName, dbUser, dbPass, dbHost, dbPort } = config
+const { dbName, dbUser, dbPass, dbHost, dbPort, dbSsl, dbSslRejectUnauthorized } = config
+
+const isSSLEnabled = dbSsl === 'true'
+const isRejectUnauthorized = dbSslRejectUnauthorized === 'true'
 
 // DB Connection (Postgres SQL)
 const sequelize = new Sequelize(dbName, dbUser, dbPass, {
@@ -18,9 +21,7 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass, {
     port: Number(dbPort),
     logging: false,
     dialectOptions: {
-        ssl: {
-            rejectUnauthorized: false,
-        },
+        ssl: isSSLEnabled ? { rejectUnauthorized: isRejectUnauthorized } : false,
     },
 })
 

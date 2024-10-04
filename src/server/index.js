@@ -22,6 +22,7 @@ class Server {
     constructor() {
         this.app = express()
         this.port = process.env.PORT
+        this.dbSync = process.env.DBSYNC === 'true'
 
         // Settings App
         this.middlewares()
@@ -70,7 +71,7 @@ class Server {
 
     startDBConnection() {
         sequelize
-            .sync({ force: false })
+            .sync({ force: this.dbSync })
             .then(() => {
                 debug('Conexión a base de datos exitosa')
                 console.log(`${chalk.yellow('[jobFinder:DB]')} Conexión a base de datos exitosa`)

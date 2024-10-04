@@ -4,4 +4,6 @@ export const config = {
     dbPass: process.env.DBPASS,
     dbHost: process.env.DBHOST,
     dbPort: process.env.DBPORT,
+    dbSsl: process.env.DBSSL,
+    dbSslRejectUnauthorized: process.env.DBSSL_REJECT_UNAUTHORIZED,
 }
