@@ -15,11 +15,10 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass, {
         acquire: 30000,
         idle: 10000,
     },
+    port: Number(dbPort),
     logging: false,
     dialectOptions: {
-        ssl: {
-            rejectUnauthorized: false,
-        },
+        ssl: isSSLEnabled ? { rejectUnauthorized: isRejectUnauthorized } : false,
     },
 })
 

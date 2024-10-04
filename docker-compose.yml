@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+    api:
+        container_name: 'job-finder-api'
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - APPVERSION=${APPVERSION}
+            - ENV=${ENV}
+            - SESSION_SECRET=${SESSION_SECRET}
+            - PORT=${PORT}
+            - DBNAME=${DBNAME}
+            - DBUSER=${DBUSER}
+            - DBPASS=${DBPASS}
+            - DBHOST=${DBHOST}
+            - DBPORT=${DBPORT}
+            - DBSSL=${DBSSL}
+            - DBSSL_REJECT_UNAUTHORIZED=${DBSSL_REJECT_UNAUTHORIZED}
+            - DBSYNC=${DBSYNC}
+            - URL_CLIENT=${URL_CLIENT}
+            - EMAIL_HOST=${EMAIL_HOST}
+            - EMAIL_PORT=${EMAIL_PORT}
+            - EMAIL_AUTH_USER=${EMAIL_AUTH_USER}
+            - EMAIL_AUTH_PASS=${EMAIL_AUTH_PASS}
+            - EMAIL_SECURE=${EMAIL_SECURE}
+            - EMAIL_REQUIRE_TLS=${EMAIL_REQUIRE_TLS}
+            - EMAIL_DISABLE_URL_ACCESS=${EMAIL_DISABLE_URL_ACCESS}
+            - EMAIL_REJECT_UNAUTHORIZED=${EMAIL_REJECT_UNAUTHORIZED}
+            - CLOUDINARY_URL=${CLOUDINARY_URL}
+            - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+            - GOOGLE_SECRET_ID=${GOOGLE_SECRET_ID}
+        ports:
+            - 4000:4000
+        volumes:
+            - ./src:/usr/src/app/src
+        depends_on:
+            db:
+                condition: service_healthy
+
+    db:
+        container_name: 'job-finder-db'
+        image: postgres
+        restart: always
+        user: postgres
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=${DBNAME}
+            - POSTGRES_PASSWORD=${DBPASS}
+        expose:
+            - 5432:5432
+        ports:
+            - 5432:5432
+        healthcheck:
+            test: ['CMD', 'pg_isready']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+volumes:
+    db-data:
