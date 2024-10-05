@@ -63,15 +63,24 @@
 -   PostgreSQL 14
 -   Sequelize v6.9
 
-## Instalación
+## Instalación de Api y Base de Datos
 
-> npm install
+## Configuración de Variables de entorno
 
-## Ejecutar la Api
+-   Renombrar .env.example a .env.
+-   Agregar las credenciales al .env.
+-   Nota: al ejecutar la primera vez, DBSYNC=true
+-   Luego colocar DBSYNC=false
 
-> npm run dev (modo development)
-> npm start (modo production)
+## Opción 1: Ejecutar Api, Crear DB (dev)
 
-## Archivo de Entrada
+-   Ejecutar el comando: `docker compose up --build -d`
+-   Para eliminar: `docker compose down --volumes`
+
+## Opción 2: Ejecutar Api (prod)
+
+-   Ejecutar el comando: `docker compose -f docker-compose.prod.yml up --build -d`
+
+## Archivo de entrada
 
 > src/app.js
