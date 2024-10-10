@@ -36,8 +36,6 @@ const sendMailInfo = async (to, subject, templateHTML) => {
             user: process.env.EMAIL_AUTH_USER,
             pass: process.env.EMAIL_AUTH_PASS,
         },
-        requireTLS: process.env.EMAIL_REQUIRE_TLS === 'true',
-        disableUrlAccess: process.env.EMAIL_DISABLE_URL_ACCESS === 'true',
         tls: {
             rejectUnauthorized: process.env.EMAIL_REJECT_UNAUTHORIZED === 'true',
         },
